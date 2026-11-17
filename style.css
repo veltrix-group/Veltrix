@@ -445,3 +445,23 @@
 }
 
 @media(max-width:760px){.pro-hero{padding:28px 22px;min-height:360px;}.pro-orb{right:-18%;top:27%;opacity:.25;}.pro-hero-foot{left:22px;right:22px;}.pro-feature-grid{grid-template-columns:1fr;}.pro-section-heading{align-items:flex-start;flex-direction:column;}.pro-bottom-banner{align-items:flex-start;}.pro-banner-mark{font-size:22px;}}
+
+/* PRO – PURCHASE BUTTON POSITION */
+
+#view-pro .pro-cta {
+  width: 100%;
+  max-width: 420px;
+  margin: 42px auto 30px;
+  padding: 0;
+  position: relative;
+  text-align: center;
+}
+
+#view-pro .pro-cta .button {
+  width: 100%;
+}
+
+#view-pro .pro-cta .processing-note {
+  margin-top: 12px;
+}
+
