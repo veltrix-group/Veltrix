@@ -465,3 +465,38 @@
   margin-top: 12px;
 }
 
+/* VELTRIX PRO – STABLE LAYOUT */
+
+#view-pro {
+  display: none;
+  width: 100%;
+  min-width: 0;
+}
+
+#view-pro.active {
+  display: block;
+}
+
+#view-pro .pro-hero,
+#view-pro .pro-section-heading,
+#view-pro .pro-feature-grid,
+#view-pro .pro-bottom-banner,
+#view-pro .pro-cta {
+  width: 100%;
+  min-width: 0;
+}
+
+#view-pro .pro-cta {
+  max-width: 420px;
+  margin: 35px auto 30px;
+  text-align: center;
+}
+
+#view-pro .pro-cta .button {
+  width: 100%;
+}
+
+#view-pro .pro-cta .processing-note {
+  margin-top: 12px;
+}
+
