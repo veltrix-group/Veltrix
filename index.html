@@ -1,636 +1,1336 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="de">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+
+  <title>VELTRIX — Privacy. Control. Freedom.</title>
+
+  <meta name="description" content="VELTRIX ist ein moderner, lokaler Workspace für Dateiverschlüsselung, Privatsphäre und digitale Kontrolle.">
+
   <link rel="icon" type="image/png" href="logo.png">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <title>VELTRIX – Local Tools & Pro Experience</title>
+  <style>
+    :root {
+      --bg: #080d18;
+      --bg-light: #0d1525;
+      --panel: #111c30;
+      --panel-light: #15233a;
+      --blue: #4c91ff;
+      --blue-light: #83b5ff;
+      --text: #f3f6fc;
+      --muted: #8997ad;
+      --line: rgba(160,185,225,.13);
+      --max: 1160px;
+    }
 
-  <meta name="description" content="VELTRIX bietet lokale Dateiverwaltung, Verschlüsselung und eine erweiterte Premium-Erfahrung.">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <meta name="robots" content="index, follow">
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 100px;
+    }
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      overflow-x: hidden;
+    }
 
-  <link rel="stylesheet" href="style.css">
-  <script src="app.js" defer></script>
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin: auto;
+    }
+
+    .ambient {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: #1765dc;
+      filter: blur(150px);
+      opacity: .12;
+      pointer-events: none;
+    }
+
+    .ambient-one {
+      top: 100px;
+      left: -300px;
+    }
+
+    .ambient-two {
+      top: 650px;
+      right: -350px;
+      opacity: .08;
+    }
+
+    /* NAVIGATION */
+
+    .header {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px solid transparent;
+      transition: .3s ease;
+    }
+
+    .header.is-scrolled {
+      background: rgba(8,13,24,.88);
+      backdrop-filter: blur(20px);
+      border-color: var(--line);
+    }
+
+    .nav {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Manrope", sans-serif;
+      font-weight: 800;
+      letter-spacing: 3px;
+      font-size: 19px;
+    }
+
+    .brand-mark {
+      width: 37px;
+      height: 37px;
+      border: 1px solid rgba(115,170,255,.65);
+      background: linear-gradient(145deg,#1c4f91,#10223e);
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 20px;
+      box-shadow: 0 0 25px rgba(50,125,255,.18);
+    }
+
+    .brand small {
+      display: block;
+      font-family: "DM Sans", sans-serif;
+      color: var(--muted);
+      letter-spacing: 2.3px;
+      font-size: 8px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      color: #aab6c9;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      transition: color .2s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-cta {
+      padding: 11px 18px;
+      border: 1px solid rgba(110,165,255,.35);
+      background: rgba(53,111,205,.12);
+      border-radius: 8px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .nav-cta:hover {
+      background: rgba(65,132,245,.25);
+      border-color: var(--blue);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      color: white;
+      border: 0;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 760px;
+      padding: 190px 0 100px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 55px;
+    }
+
+    .eyebrow {
+      color: var(--blue-light);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: "Manrope", sans-serif;
+      font-size: clamp(48px,6vw,76px);
+      line-height: 1.07;
+      letter-spacing: -3.5px;
+      margin: 24px 0;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(100deg,#fff 10%,#7caeff 75%,#3c78d4);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      max-width: 500px;
+      color: #9baac0;
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 35px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 15px 22px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: .25s;
+    }
+
+    .button-primary {
+      color: white;
+      background: linear-gradient(110deg,#2868c9,#438df5);
+      box-shadow: 0 8px 35px rgba(40,105,220,.22);
+    }
+
+    .button-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(40,105,220,.38);
+    }
+
+    .button-secondary {
+      color: #d6dfed;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+
+    .button-secondary:hover {
+      background: rgba(255,255,255,.07);
+    }
+
+    .hero-note {
+      margin-top: 27px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #8292aa;
+      font-size: 11px;
+    }
+
+    .green-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #5acb9b;
+      box-shadow: 0 0 12px #5acb9b;
+    }
+
+    /* PRODUCT VISUAL */
+
+    .visual {
+      min-height: 420px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+    }
+
+    .visual-glow {
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: #1764df;
+      filter: blur(100px);
+      opacity: .23;
+    }
+
+    .product-window {
+      position: relative;
+      width: 100%;
+      max-width: 470px;
+      min-height: 310px;
+      border: 1px solid rgba(130,170,230,.25);
+      border-radius: 15px;
+      background: linear-gradient(145deg,rgba(22,36,59,.97),rgba(9,17,31,.98));
+      box-shadow: 0 35px 100px rgba(0,0,0,.45),0 0 55px rgba(40,110,220,.12);
+      transform: rotateY(-7deg) rotateX(3deg);
+      overflow: hidden;
+      animation: float 7s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) rotateY(-7deg) rotateX(3deg); }
+      50% { transform: translateY(-12px) rotateY(-5deg) rotateX(2deg); }
+    }
+
+    .window-top {
+      height: 45px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 7px;
+    }
+
+    .window-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #50617c;
+    }
+
+    .window-title {
+      margin-left: auto;
+      color: #7889a4;
+      font-size: 9px;
+      letter-spacing: 2px;
+    }
+
+    .window-content {
+      display: grid;
+      grid-template-columns: 115px 1fr;
+      min-height: 264px;
+    }
+
+    .window-sidebar {
+      padding: 20px 12px;
+      border-right: 1px solid var(--line);
+    }
+
+    .mini-brand {
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 27px;
+    }
+
+    .mini-link {
+      color: #8192ad;
+      font-size: 9px;
+      padding: 10px 7px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+    }
+
+    .mini-link.active {
+      color: #a9ceff;
+      background: rgba(66,130,230,.16);
+    }
+
+    .window-main {
+      padding: 24px 20px;
+    }
+
+    .window-label {
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: #6e9ee4;
+    }
+
+    .window-heading {
+      font-family: "Manrope",sans-serif;
+      font-size: 23px;
+      font-weight: 800;
+      margin: 12px 0 5px;
+    }
+
+    .window-sub {
+      font-size: 9px;
+      color: #8494ac;
+    }
+
+    .file-card {
+      margin-top: 24px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 38px;
+      border-radius: 5px;
+      background: linear-gradient(150deg,#2d68b5,#172e50);
+      display: grid;
+      place-items: center;
+      color: #c9e1ff;
+      font-size: 14px;
+    }
+
+    .file-info strong {
+      display: block;
+      font-size: 9px;
+      color: #e4ebf5;
+    }
+
+    .file-info small {
+      display: block;
+      margin-top: 5px;
+      color: #7788a1;
+      font-size: 8px;
+    }
+
+    .file-lock {
+      margin-left: auto;
+      color: #69a8ff;
+      font-size: 16px;
+    }
+
+    .window-status {
+      margin-top: 17px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #70cba6;
+      font-size: 8px;
+    }
+
+    /* SECTIONS */
+
+    section.content-section {
+      padding: 110px 0;
+      position: relative;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 48px;
+    }
+
+    .section-heading h2 {
+      font-family: "Manrope",sans-serif;
+      font-size: clamp(32px,4vw,46px);
+      letter-spacing: -1.8px;
+      line-height: 1.2;
+      margin: 17px 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 240px;
+      padding: 27px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg,rgba(19,32,53,.85),rgba(11,19,33,.85));
+      border-radius: 12px;
+      transition: .3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(88,151,255,.4);
+      background: linear-gradient(145deg,#152743,#0d192b);
+    }
+
+    .feature-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #8bbaff;
+      background: rgba(54,119,211,.14);
+      border: 1px solid rgba(100,160,240,.17);
+      font-size: 19px;
+    }
+
+    .feature-card h3 {
+      font-family: "Manrope",sans-serif;
+      font-size: 18px;
+      margin: 24px 0 10px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .feature-number {
+      margin-top: 25px;
+      display: block;
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: #688ab9;
+    }
+
+    /* SECURITY */
+
+    .security-section {
+      background: linear-gradient(180deg,transparent,rgba(16,35,64,.32),transparent);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .security-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 80px;
+    }
+
+    .security-visual {
+      min-height: 330px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .shield {
+      width: 185px;
+      height: 215px;
+      clip-path: polygon(50% 0%,95% 17%,90% 66%,50% 100%,10% 66%,5% 17%);
+      background: linear-gradient(145deg,#4e9cff,#143e79 55%,#0c1c35);
+      display: grid;
+      place-items: center;
+      filter: drop-shadow(0 0 35px rgba(53,126,234,.3));
+      position: relative;
+    }
+
+    .shield-inner {
+      width: 150px;
+      height: 178px;
+      clip-path: polygon(50% 0%,95% 17%,90% 66%,50% 100%,10% 66%,5% 17%);
+      background: linear-gradient(145deg,#102b50,#0b172a);
+      display: grid;
+      place-items: center;
+      font-size: 56px;
+      color: #a9d0ff;
+    }
+
+    .security-points {
+      display: grid;
+      gap: 22px;
+      margin-top: 35px;
+    }
+
+    .security-point {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .check {
+      color: #72b6ff;
+      font-size: 17px;
+      margin-top: 1px;
+    }
+
+    .security-point strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .security-point p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* PRO */
+
+    .pro-panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(106,160,255,.23);
+      background: linear-gradient(120deg,#122747,#0c172a 70%);
+      border-radius: 17px;
+      padding: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .pro-panel::after {
+      content: "";
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      right: 5%;
+      top: -220px;
+      border-radius: 50%;
+      background: #2e76db;
+      filter: blur(120px);
+      opacity: .17;
+    }
+
+    .pro-panel h2 {
+      font-family: "Manrope",sans-serif;
+      font-size: clamp(32px,4vw,45px);
+      letter-spacing: -1.5px;
+      margin: 15px 0;
+    }
+
+    .pro-panel p {
+      max-width: 520px;
+      color: #9aaac1;
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .pro-label {
+      color: #a9caff;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    .pro-mark {
+      font-family: "Manrope",sans-serif;
+      font-size: 80px;
+      font-weight: 800;
+      letter-spacing: -7px;
+      color: rgba(146,190,255,.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* FAQ */
+
+    .faq-wrap {
+      max-width: 800px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 23px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      background: none;
+      border: 0;
+      color: white;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .faq-question span:last-child {
+      color: #77aaff;
+      font-size: 21px;
+      transition: .2s;
+    }
+
+    .faq-item.is-open .faq-question span:last-child {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 30px 22px 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    /* FOOTER */
+
+    .footer {
+      padding: 55px 0 30px;
+      border-top: 1px solid var(--line);
+      background: #070b13;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 30px;
+      padding-bottom: 45px;
+    }
+
+    .footer-description {
+      max-width: 270px;
+      margin-top: 15px;
+      color: #77869c;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 35px;
+      flex-wrap: wrap;
+      color: #8796ab;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      color: #66758a;
+      font-size: 10px;
+    }
+
+    /* ANIMATIONS */
+
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+    }
+
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease,transform .7s ease;
+    }
+
+    .will-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 850px) {
+      .hero-grid,
+      .security-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 155px;
+      }
+
+      .visual {
+        min-height: 360px;
+      }
+
+      .features {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .security-grid {
+        gap: 25px;
+      }
+
+      .security-visual {
+        min-height: 240px;
+      }
+
+      .pro-panel {
+        padding: 38px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .container {
+        width: min(100% - 34px,var(--max));
+      }
+
+      .nav {
+        height: 70px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 22px;
+        background: #0c1423;
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+      }
+
+      .nav-links.is-open {
+        display: flex;
+      }
+
+      .nav-cta {
+        text-align: center;
+      }
+
+      .hero {
+        padding: 130px 0 65px;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .hero-text {
+        font-size: 14px;
+      }
+
+      .visual {
+        min-height: 300px;
+      }
+
+      .product-window {
+        transform: none;
+        animation: none;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      section.content-section {
+        padding: 75px 0;
+      }
+
+      .pro-panel {
+        padding: 30px 24px;
+      }
+
+      .pro-mark {
+        display: none;
+      }
+
+      .footer-top,
+      .footer-bottom {
+        flex-direction: column;
+      }
+
+      .footer-links {
+        gap: 18px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+
+  <script src="js/main.js" defer></script>
 </head>
 
 <body>
+
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
 
-  <div class="shell">
+  <!-- NAVIGATION -->
 
-    <aside class="sidebar">
-      <a class="brand" href="#home" aria-label="VELTRIX Übersicht">
+  <header class="header" data-site-header>
+    <div class="container nav">
+
+      <a href="#home" class="brand">
         <span class="brand-mark">V</span>
-        <span class="brand-copy">
-          <strong>VELTRIX</strong>
-          <small>LOCAL VAULT</small>
+        <span>
+          VELTRIX
+          <small>PRIVACY TECHNOLOGY</small>
         </span>
       </a>
 
-      <div class="nav-caption">ARBEITSBEREICH</div>
-
-      <button class="nav-item active" data-view="home">
-        <span class="nav-symbol">⌂</span> Übersicht
+      <button class="menu-toggle" data-menu-toggle
+              aria-label="Menü öffnen"
+              aria-expanded="false">
+        ☰
       </button>
 
-      <button class="nav-item" data-view="vault">
-        <span class="nav-symbol">▣</span> Verschlüsseln
-      </button>
+      <nav class="nav-links" data-site-nav>
+        <a href="#features">Funktionen</a>
+        <a href="#security">Sicherheit</a>
+        <a href="#pro">Pro</a>
+        <a href="#faq">FAQ</a>
+        <a href="app/index.html" class="nav-cta">Open Workspace ↗</a>
+      </nav>
 
-      <button class="nav-item" data-view="safe">
-        <span class="nav-symbol">▤</span> Tresor
-      </button>
+    </div>
+  </header>
 
-      <button class="nav-item" data-view="privacy">
-        <span class="nav-symbol">◈</span> Sicherheit & Info
-      </button>
 
-      <button class="nav-item pro-nav-item" data-view="pro">
-        <span class="nav-symbol">✦</span>
-        VELTRIX
-        <span class="pro-nav-label">PRO</span>
-      </button>
+  <!-- HERO -->
 
-      <div class="sidebar-bottom">
-        <span class="status-dot"></span>
-        <div>
-          <strong>Nur lokal</strong>
-          <small>Keine Cloud-Verbindung</small>
+  <main>
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div data-reveal>
+
+          <div class="eyebrow">A NEW WAY TO CONTROL YOUR FILES</div>
+
+          <h1>
+            Your files.<br>
+            <span>Your control.</span>
+          </h1>
+
+          <p class="hero-text">
+            Discover a more private way to work with your files.
+            VELTRIX brings local file encryption and a focused
+            workspace together in one modern experience.
+          </p>
+
+          <div class="hero-actions">
+            <a href="app/index.html" class="button button-primary">
+              Explore VELTRIX <span>↗</span>
+            </a>
+
+            <a href="#features" class="button button-secondary">
+              Discover features <span>↓</span>
+            </a>
+          </div>
+
+          <div class="hero-note">
+            <span class="green-dot"></span>
+            LOCAL-FIRST DESIGN · NO ACCOUNT REQUIRED
+          </div>
+
+        </div>
+
+
+        <div class="visual" data-reveal>
+
+          <div class="visual-glow"></div>
+
+          <div class="product-window">
+
+            <div class="window-top">
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+              <span class="window-dot"></span>
+              <span class="window-title">VELTRIX WORKSPACE</span>
+            </div>
+
+            <div class="window-content">
+
+              <div class="window-sidebar">
+                <div class="mini-brand">VELTRIX</div>
+                <div class="mini-link active">⌂ Overview</div>
+                <div class="mini-link">▣ Encryption</div>
+                <div class="mini-link">▤ Vault</div>
+                <div class="mini-link">◈ Security</div>
+              </div>
+
+              <div class="window-main">
+                <div class="window-label">PRIVATE WORKSPACE</div>
+                <div class="window-heading">Welcome back.</div>
+                <div class="window-sub">Your personal file environment.</div>
+
+                <div class="file-card">
+                  <div class="file-icon">▤</div>
+                  <div class="file-info">
+                    <strong>Private_Documents.vltx</strong>
+                    <small>Encrypted file · Local</small>
+                  </div>
+                  <div class="file-lock">◈</div>
+                </div>
+
+                <div class="window-status">
+                  <span class="green-dot"></span>
+                  LOCAL ENVIRONMENT
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="content-section" id="features">
+      <div class="container">
+
+        <div class="section-heading" data-reveal>
+          <div class="eyebrow">THE VELTRIX EXPERIENCE</div>
+          <h2>Everything important.<br>Nothing unnecessary.</h2>
+          <p>
+            A clear workspace built around privacy, control
+            and a straightforward way to protect your files.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">▣</div>
+            <h3>File Encryption</h3>
+            <p>
+              Encrypt individual files and create protected
+              VELTRIX files that you can download and store.
+            </p>
+            <span class="feature-number">01 / ENCRYPTION</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">◈</div>
+            <h3>Private Vault</h3>
+            <p>
+              Keep encrypted files in your browser's local
+              storage with your own password.
+            </p>
+            <span class="feature-number">02 / STORAGE</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">⌘</div>
+            <h3>AES-256-GCM</h3>
+            <p>
+              VELTRIX uses authenticated encryption through
+              the browser's Web Crypto API.
+            </p>
+            <span class="feature-number">03 / TECHNOLOGY</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">⌕</div>
+            <h3>Simple Experience</h3>
+            <p>
+              A focused interface designed to make important
+              file operations clear and accessible.
+            </p>
+            <span class="feature-number">04 / DESIGN</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">◉</div>
+            <h3>No Account Needed</h3>
+            <p>
+              Start using the current workspace without
+              creating a VELTRIX account.
+            </p>
+            <span class="feature-number">05 / ACCESS</span>
+          </article>
+
+          <article class="feature-card" data-reveal>
+            <div class="feature-icon">✦</div>
+            <h3>Pro Experience</h3>
+            <p>
+              A vision for an expanded workspace with
+              additional organization and personalization.
+            </p>
+            <span class="feature-number">06 / WHAT'S NEXT</span>
+          </article>
+
         </div>
       </div>
-    </aside>
+    </section>
 
-    <main class="main">
 
-      <header class="topbar">
+    <!-- SECURITY -->
+
+    <section class="content-section security-section" id="security">
+      <div class="container security-grid">
+
+        <div class="security-visual" data-reveal>
+          <div class="shield">
+            <div class="shield-inner">V</div>
+          </div>
+        </div>
+
+        <div data-reveal>
+
+          <div class="section-heading">
+            <div class="eyebrow">PRIVACY BY DESIGN</div>
+            <h2>Your data belongs to you.</h2>
+            <p>
+              VELTRIX is designed around local processing.
+              The current encryption tools process selected
+              file contents directly in your browser.
+            </p>
+          </div>
+
+          <div class="security-points">
+
+            <div class="security-point">
+              <span class="check">✓</span>
+              <div>
+                <strong>Local file processing</strong>
+                <p>Selected files are processed in your browser, not uploaded to a VELTRIX server by the encryption tools.</p>
+              </div>
+            </div>
+
+            <div class="security-point">
+              <span class="check">✓</span>
+              <div>
+                <strong>Authenticated encryption</strong>
+                <p>AES-256-GCM helps protect file contents and detect unauthorized changes.</p>
+              </div>
+            </div>
+
+            <div class="security-point">
+              <span class="check">✓</span>
+              <div>
+                <strong>Browser-based technology</strong>
+                <p>VELTRIX uses the Web Crypto API for its encryption functionality.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PRO -->
+
+    <section class="content-section" id="pro">
+      <div class="container">
+
+        <div class="pro-panel" data-reveal>
+
+          <div>
+            <div class="pro-label">THE NEXT LEVEL</div>
+
+            <h2>Introducing VELTRIX Pro.</h2>
+
+            <p>
+              A more advanced workspace is taking shape.
+              Multiple vaults, advanced organization,
+              personalization and more possibilities
+              are part of the planned Pro experience.
+            </p>
+
+            <div class="hero-actions">
+              <a href="app/index.html" class="button button-primary">
+                Discover VELTRIX <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="pro-mark">PRO</div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section class="content-section" id="faq">
+      <div class="container">
+
+        <div class="section-heading" data-reveal>
+          <div class="eyebrow">QUESTIONS & ANSWERS</div>
+          <h2>Good to know.</h2>
+          <p>Some answers to common questions about VELTRIX.</p>
+        </div>
+
+        <div class="faq-wrap" data-accordion data-reveal>
+
+          <div class="faq-item" data-accordion-item>
+            <button class="faq-question"
+                    data-accordion-trigger
+                    aria-expanded="false">
+              What is VELTRIX?
+              <span>+</span>
+            </button>
+            <div class="faq-answer"
+                 data-accordion-panel hidden>
+              VELTRIX is a local-first workspace focused on
+              file encryption, private storage and a clear
+              digital working environment.
+            </div>
+          </div>
+
+          <div class="faq-item" data-accordion-item>
+            <button class="faq-question"
+                    data-accordion-trigger
+                    aria-expanded="false">
+              Do I need an account?
+              <span>+</span>
+            </button>
+            <div class="faq-answer"
+                 data-accordion-panel hidden>
+              No account is required to use the current
+              VELTRIX workspace.
+            </div>
+          </div>
+
+          <div class="faq-item" data-accordion-item>
+            <button class="faq-question"
+                    data-accordion-trigger
+                    aria-expanded="false">
+              How does encryption work?
+              <span>+</span>
+            </button>
+            <div class="faq-answer"
+                 data-accordion-panel hidden>
+              The current file encryption tools use AES-256-GCM
+              through the browser's Web Crypto API and derive
+              an encryption key from your password.
+            </div>
+          </div>
+
+          <div class="faq-item" data-accordion-item>
+            <button class="faq-question"
+                    data-accordion-trigger
+                    aria-expanded="false">
+              Is VELTRIX Pro available?
+              <span>+</span>
+            </button>
+            <div class="faq-answer"
+                 data-accordion-panel hidden>
+              VELTRIX Pro is currently planned and in development.
+              Features and pricing will be announced when they
+              are ready.
+            </div>
+          </div>
+
+          <div class="faq-item" data-accordion-item>
+            <button class="faq-question"
+                    data-accordion-trigger
+                    aria-expanded="false">
+              Where are my vault files stored?
+              <span>+</span>
+            </button>
+            <div class="faq-answer"
+                 data-accordion-panel hidden>
+              The current browser vault uses IndexedDB on your
+              device. Clearing browser data can remove locally
+              stored vault files, so keep separate backups.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-top">
+
         <div>
-          <div class="eyebrow">PERSÖNLICHER ARBEITSBEREICH</div>
-          <h1 id="page-title">Übersicht</h1>
-        </div>
-
-        <div class="top-actions">
-          <a class="button button-secondary download-button"
-             href="VELTRIX-Programm.zip" download>
-            Programm herunterladen ↓
+          <a href="#home" class="brand">
+            <span class="brand-mark">V</span>
+            <span>
+              VELTRIX
+              <small>PRIVACY TECHNOLOGY</small>
+            </span>
           </a>
 
-          <div class="local-badge">
-            <span class="status-dot"></span>
-            LOKAL AUF DIESEM GERÄT
-          </div>
-        </div>
-      </header>
-
-      <!-- HOME -->
-      <section class="view active" id="view-home">
-
-        <div class="hero">
-          <div class="hero-copy">
-            <div class="eyebrow hero-eyebrow">VELTRIX / PRIVATE SPACE</div>
-
-            <h2>Deine Dateien.<br><em>Deine Kontrolle.</em></h2>
-
-            <p>
-              Ein privater Dateitresor, der Dateien direkt in deinem
-              Browser verschlüsselt. Kein Konto. Keine Cloud.
-              Deine Originaldateien bleiben unangetastet.
-            </p>
-
-            <button class="button button-primary" data-go="vault">
-              Dateitresor öffnen <span>↗</span>
-            </button>
-          </div>
-
-          <div class="hero-art" aria-hidden="true">
-            <div class="halo halo-a"></div>
-            <div class="halo halo-b"></div>
-            <div class="orbit"></div>
-            <div class="gem"><span>V</span></div>
-            <div class="spark spark-a"></div>
-            <div class="spark spark-b"></div>
-          </div>
-
-          <div class="hero-foot">
-            <span>01</span>
-            <span class="hero-line"></span>
-            <span>LOCAL-FIRST SECURITY</span>
-          </div>
+          <p class="footer-description">
+            A new perspective on digital privacy,
+            file protection and personal control.
+          </p>
         </div>
 
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">DEIN SYSTEM</div>
-            <h3>Einfach. Lokal. Verschlüsselt.</h3>
-          </div>
-          <span class="quiet">Keine Anmeldung erforderlich</span>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#security">Security</a>
+          <a href="#pro">VELTRIX Pro</a>
+          <a href="#faq">FAQ</a>
+          <a href="app/index.html">Workspace ↗</a>
         </div>
 
-        <div class="feature-grid">
+      </div>
 
-          <button class="feature-card" data-go="vault">
-            <span class="feature-icon">▣</span>
-            <span class="feature-tag">01 / DATEIEN</span>
-            <h4>Dateitresor</h4>
-            <p>Verschlüssele eine Datei oder stelle sie mit deinem Passwort wieder her.</p>
-            <span class="card-arrow">↗</span>
-          </button>
+      <div class="footer-bottom">
+        <span>© <span data-current-year>2026</span> VELTRIX. All rights reserved.</span>
+        <span>Privacy. Control. Freedom.</span>
+      </div>
 
-          <div class="feature-card static-card">
-            <span class="feature-icon">⌘</span>
-            <span class="feature-tag">02 / VERSCHLÜSSELUNG</span>
-            <h4>AES-256-GCM</h4>
-            <p>Authentifizierte Verschlüsselung mit passwortbasierter Schlüsselableitung.</p>
-            <span class="card-footnote">Browser Web Crypto API</span>
-          </div>
-
-          <div class="feature-card static-card">
-            <span class="feature-icon">◈</span>
-            <span class="feature-tag">03 / PRIVATSPHÄRE</span>
-            <h4>Auf deinem Gerät</h4>
-            <p>Dateiinhalte werden nicht an einen VELTRIX-Server hochgeladen.</p>
-            <span class="card-footnote">Offline nach dem Start nutzbar</span>
-          </div>
-
-          <a class="feature-card tor-feature"
-             href="https://www.torproject.org/download/"
-             target="_blank"
-             rel="noopener noreferrer">
-            <div class="feature-icon">◉</div>
-            <h3>Tor Browser</h3>
-            <p>Privater surfen.</p>
-            <span class="feature-link">Herunterladen ↗</span>
-          </a>
-
-        </div>
-
-        <footer>
-          VELTRIX <span>•</span> LOCAL VAULT
-          <span class="footer-right">BUILD 1.0</span>
-        </footer>
-      </section>
-
-      <!-- ENCRYPTION -->
-      <section class="view" id="view-vault">
-
-        <div class="page-intro">
-          <div>
-            <div class="eyebrow">PRIVATE STORAGE</div>
-            <h2>Dateitresor</h2>
-            <p>
-              Erstelle eine verschlüsselte <strong>.vltx</strong>-Kopie
-              oder entschlüssele eine Datei, die du bereits mit VELTRIX erstellt hast.
-            </p>
-          </div>
-          <div class="intro-icon">▣</div>
-        </div>
-
-        <div class="vault-grid">
-
-          <article class="panel">
-            <div class="panel-title">
-              <span class="step-number">01</span>
-              <div>
-                <h3>Datei verschlüsseln</h3>
-                <p>Wähle die Datei, die du schützen möchtest.</p>
-              </div>
-            </div>
-
-            <label for="encrypt-file">Datei</label>
-            <input id="encrypt-file" type="file">
-
-            <label for="encrypt-password">Passwort</label>
-            <input id="encrypt-password" type="password"
-                   autocomplete="new-password"
-                   placeholder="Mindestens 12 Zeichen"
-                   minlength="12">
-
-            <div class="password-hint">
-              Verwende ein langes, einzigartiges Passwort.
-            </div>
-
-            <button id="encrypt-button"
-                    class="button button-primary button-full">
-              <span>Verschlüsseln & herunterladen</span>
-              <span>↓</span>
-            </button>
-
-            <div id="encrypt-status"
-                 class="status-message"
-                 role="status"
-                 aria-live="polite"></div>
-          </article>
-
-          <article class="panel">
-            <div class="panel-title">
-              <span class="step-number step-muted">02</span>
-              <div>
-                <h3>Datei entschlüsseln</h3>
-                <p>Stelle deine Originaldatei mit dem Passwort wieder her.</p>
-              </div>
-            </div>
-
-            <label for="decrypt-file">VELTRIX-Datei (.vltx)</label>
-            <input id="decrypt-file" type="file"
-                   accept=".vltx,application/octet-stream">
-
-            <label for="decrypt-password">Passwort</label>
-            <input id="decrypt-password" type="password"
-                   autocomplete="current-password"
-                   placeholder="Passwort eingeben">
-
-            <div class="password-hint">
-              Es wird nur die ausgewählte Datei verarbeitet.
-            </div>
-
-            <button id="decrypt-button"
-                    class="button button-secondary button-full">
-              <span>Entschlüsseln & herunterladen</span>
-              <span>↓</span>
-            </button>
-
-            <div id="decrypt-status"
-                 class="status-message"
-                 role="status"
-                 aria-live="polite"></div>
-          </article>
-
-        </div>
-
-        <div class="processing-note">
-          <span>◈</span>
-          Die Verarbeitung findet in deinem Browser statt.
-          Es wird keine Netzwerkverbindung zum Verschlüsseln
-          oder Entschlüsseln benötigt.
-        </div>
-      </section>
-
-      <!-- VAULT -->
-      <section class="view" id="view-safe">
-
-        <div class="page-intro">
-          <div>
-            <div class="eyebrow">PRIVATE FILE STORAGE</div>
-            <h2>Dein Tresor</h2>
-            <p>
-              Füge Dateien hinzu. Sie werden vor dem Speichern lokal
-              verschlüsselt und bleiben in diesem Browser auf diesem Gerät.
-            </p>
-          </div>
-          <div class="intro-icon">▤</div>
-        </div>
-
-        <!-- FREE VAULT -->
-        <div class="panel vault-manager">
-
-          <div class="panel-title">
-            <span class="step-number">01</span>
-            <div>
-              <h3>Dein persönlicher Tresor</h3>
-              <p>Die bewährte VELTRIX-Funktion für deinen lokalen Speicher.</p>
-            </div>
-          </div>
-
-          <label for="safe-files">Dateien auswählen</label>
-          <input id="safe-files" type="file" multiple>
-
-          <label for="safe-password">Tresor-Passwort</label>
-          <input id="safe-password" type="password"
-                 autocomplete="new-password"
-                 placeholder="Mindestens 12 Zeichen"
-                 minlength="12">
-
-          <button id="safe-add"
-                  class="button button-primary button-full">
-            <span>Verschlüsseln & im Tresor speichern</span>
-            <span>＋</span>
-          </button>
-
-          <div id="safe-status"
-               class="status-message"
-               role="status"
-               aria-live="polite"></div>
-        </div>
-
-        <div class="section-head vault-list-head">
-          <div>
-            <div class="eyebrow">DEIN SPEICHER</div>
-            <h3>Gespeicherte Dateien</h3>
-          </div>
-          <button id="safe-refresh"
-                  class="button button-secondary">
-            Aktualisieren ↻
-          </button>
-        </div>
-
-        <div id="safe-list" class="safe-list">
-          <div class="empty-state">
-            Dein Tresor ist noch leer. Füge oben eine Datei hinzu.
-          </div>
-        </div>
-
-        <div class="processing-note">
-          <span>◈</span>
-          Die Tresordateien werden verschlüsselt in diesem Browser
-          gespeichert (IndexedDB). Browserdaten löschen kann
-          lokale Tresordateien entfernen.
-        </div>
-
-        <!-- PRO MULTIPLE VAULTS -->
-        <div class="section-head pro-vault-heading">
-          <div>
-            <div class="eyebrow pro-eyebrow">VELTRIX PRO</div>
-            <h3>Multiple Vaults</h3>
-          </div>
-          <span class="pro-coming-label">PRO FEATURE</span>
-        </div>
-
-        <div class="panel pro-vault-manager" id="pro-vault-manager">
-
-          <div class="panel-title">
-            <span class="step-number">✦</span>
-            <div>
-              <h3>Mehrere Tresore. Ein Workspace.</h3>
-              <p>
-                Organisiere deine Dateien in getrennten,
-                individuell geschützten Bereichen.
-              </p>
-            </div>
-          </div>
-
-          <div class="pro-vault-preview">
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Privater Tresor</strong>
-                <small>Persönliche Dateien</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Schule</strong>
-                <small>Dokumente und Projekte</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Projekte</strong>
-                <small>Eigene Arbeitsbereiche</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-          </div>
-
-          <div class="processing-note">
-            <span>◈</span>
-            Die Verwaltung mehrerer Tresore befindet sich in Entwicklung.
-            Deine bisherigen Dateien bleiben davon unberührt.
-          </div>
-
-          <button class="button button-secondary button-full"
-                  data-go="pro">
-            VELTRIX Pro entdecken <span>↗</span>
-          </button>
-
-        </div>
-      </section>
-
-      <!-- PRIVACY -->
-      <section class="view" id="view-privacy">
-
-        <div class="page-intro">
-          <div>
-            <div class="eyebrow">DEVICE & PRIVACY</div>
-            <h2>Sicherheit & Info</h2>
-            <p>Die wichtigsten Funktionen von VELTRIX auf einen Blick.</p>
-          </div>
-          <div class="intro-icon">◈</div>
-        </div>
-
-        <div class="info-list">
-
-          <article>
-            <span class="info-check">✓</span>
-            <div>
-              <h3>Lokale Verarbeitung</h3>
-              <p>
-                Die ausgewählte Datei wird direkt in deinem Browser
-                verarbeitet und nicht an einen VELTRIX-Server gesendet.
-              </p>
-            </div>
-          </article>
-
-          <article>
-            <span class="info-check">✓</span>
-            <div>
-              <h3>AES-256-GCM</h3>
-              <p>
-                Die Dateiinhalte werden mit authentifizierter
-                AES-GCM-Verschlüsselung geschützt.
-              </p>
-            </div>
-          </article>
-
-          <article>
-            <span class="info-check">✓</span>
-            <div>
-              <h3>Passwortbasierter Schlüssel</h3>
-              <p>
-                PBKDF2-SHA-256 und ein zufälliger Salt leiten aus
-                deinem Passwort den Verschlüsselungsschlüssel ab.
-              </p>
-            </div>
-          </article>
-
-          <article>
-            <span class="info-check">✓</span>
-            <div>
-              <h3>Einfacher Dateiexport</h3>
-              <p>
-                Verschlüsselte und wiederhergestellte Dateien werden
-                als Downloads gespeichert. Deine ausgewählte
-                Originaldatei bleibt unverändert.
-              </p>
-            </div>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- PRO -->
-      
-
-      <section class="view pro-view" id="view-pro">
-
-        <div class="pro-hero">
-
-          <div class="pro-hero-copy">
-            <div class="pro-kicker">
-              <span class="pro-kicker-line"></span>
-              VELTRIX / PREMIUM EXPERIENCE
-            </div>
-
-            <h2>More control.<br><em>More possibilities.</em></h2>
-
-            <p>
-              Discover the next level of the VELTRIX experience.
-              Powerful tools for a more organized, personal
-              and controlled workspace.
-            </p>
-
-            <span class="pro-status">COMING SOON</span>
-          </div>
-
-          <div class="pro-orb" aria-hidden="true">
-            <div class="pro-orb-ring"></div>
-            <div class="pro-orb-core">V</div>
-            <span class="pro-orb-spark pro-spark-one"></span>
-            <span class="pro-orb-spark pro-spark-two"></span>
-          </div>
-
-          <div class="pro-hero-foot">
-            <span>VELTRIX PRO</span>
-            <span class="pro-hero-line"></span>
-            <span>BUILT FOR MORE</span>
-          </div>
-        </div>
-
-        <div class="pro-section-heading">
-          <div>
-            <div class="eyebrow pro-eyebrow">THE PREMIUM EXPERIENCE</div>
-            <h3>Designed for those who want more.</h3>
-          </div>
-          <span class="pro-coming-label">PLANNED FEATURES</span>
-        </div>
-
-        <div class="pro-feature-grid">
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▣</span>
-            <span class="pro-feature-number">01 / STORAGE</span>
-            <h4>Multiple Vaults</h4>
-            <p>Create separate spaces for different projects, documents and personal files.</p>
-            <span class="pro-feature-state">IN DEVELOPMENT</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">⌕</span>
-            <span class="pro-feature-number">02 / ORGANIZATION</span>
-            <h4>Advanced Organization</h4>
-            <p>Use custom tags, advanced filters and saved searches to find things faster.</p>
-            <span class="pro-feature-state">PLANNED</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▤</span>
-            <span class="pro-feature-number">03 / PRODUCTIVITY</span>
-            <h4>Bulk Actions</h4>
-            <p>Manage multiple files in fewer steps with carefully designed batch actions.</p>
-            <span class="pro-feature-state">PLANNED</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">✧</span>
-            <span class="pro-feature-number">04 / PERSONALIZATION</span>
-            <h4>Personalization Studio</h4>
-            <p>Customize your workspace with themes, accent colors and layout options.</p>
-            <span class="pro-feature-state">PLANNED</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">⤓</span>
-            <span class="pro-feature-number">05 / BACKUP</span>
-            <h4>Secure Backup & Restore</h4>
-            <p>Plan and manage backups for supported workspace data and settings.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">◷</span>
-            <span class="pro-feature-number">06 / HISTORY</span>
-            <h4>Activity History</h4>
-            <p>Review a local history of important workspace changes and actions.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">◈</span>
-            <span class="pro-feature-number">07 / CONTROL</span>
-            <h4>Security Center</h4>
-            <p>See relevant security and storage information in one clear overview.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▦</span>
-            <span class="pro-feature-number">08 / WORKSPACE</span>
-            <h4>Advanced Dashboard</h4>
-            <p>Arrange shortcuts and workspace elements around the way you work.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-        </div>
-
-        <div class="pro-bottom-banner">
-          <div>
-            <div class="pro-kicker">THE NEXT STEP</div>
-            <h3>VELTRIX Pro is in development.</h3>
-            <p>
-              We are shaping a more powerful experience.
-              Feature availability and pricing will be announced
-              when the product is ready.
-            </p>
-          </div>
-          <span class="pro-banner-mark">PRO</span>
-        </div>
-
-  
-<div class="pro-cta">
-  <button class="button button-primary button-full" disabled>
-    VELTRIX Pro kaufen · 24,99 €
-  </button>
-  
-</div>
-      
-
-      </section>
-
-    </main>
-  </div>
-
-  <!-- GLOBAL FOOTER -->
-  <footer class="veltrix-footer">
-
-    <div class="footer-brand">
-      <span class="footer-logo">VELTRIX</span>
-      <span class="footer-tagline">Privacy. Control. Freedom.</span>
     </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 VELTRIX. Alle Rechte vorbehalten.</span>
-      <span>Designed for privacy.</span>
-    </div>
-
-    <p>
-      <a href="dateien-verschluesseln.html">
-        Mehr über Dateien verschlüsseln mit VELTRIX erfahren
-      </a>
-    </p>
-
   </footer>
 
 </body>
