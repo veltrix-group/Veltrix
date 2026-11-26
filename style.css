@@ -535,4 +535,106 @@
   outline-offset: -3px;
   border-radius: 10px;
 }
+/* =========================================================
+   VELTRIX TEXT LOCK
+   ========================================================= */
 
+.text-lock-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.text-lock-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 0;
+}
+
+.text-lock-card h2 {
+  font-size: 19px;
+  font-weight: 650;
+  margin: 0 0 8px;
+}
+
+.text-lock-card p {
+  color: var(--muted, #9299a8);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.text-lock-card textarea,
+.text-lock-card input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 13px 14px;
+  color: #fff;
+  font: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.text-lock-card textarea {
+  min-height: 145px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.text-lock-card input {
+  margin-top: 12px;
+}
+
+.text-lock-card textarea:focus,
+.text-lock-card input:focus {
+  border-color: #438cff;
+  box-shadow: 0 0 0 3px rgba(67, 140, 255, 0.12);
+}
+
+.text-lock-card button {
+  margin-top: 14px;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 18px;
+  background: #3478e5;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.text-lock-card button:hover {
+  background: #468cff;
+  transform: translateY(-1px);
+}
+
+.text-lock-card button:active {
+  transform: translateY(0);
+}
+
+.text-lock-status {
+  min-height: 20px;
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted, #9299a8);
+}
+
+.text-lock-output {
+  margin-top: 16px;
+}
+
+@media (max-width: 800px) {
+  .text-lock-container {
+    grid-template-columns: 1fr;
+  }
+
+  .text-lock-card {
+    padding: 19px;
+  }
+}
