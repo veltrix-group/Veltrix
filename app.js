@@ -15,7 +15,8 @@ const title = document.getElementById('page-title');
 const titles = {
   home: 'Übersicht',
   vault: 'Verschlüsseln',
-  safe: 'Tresor',
+   'text-lock': 'TEXT LOCK',
+safe: 'Tresor',
   privacy: 'Sicherheit & Info',
   pro: 'VELTRIX Pro'
 };
@@ -288,7 +289,210 @@ document.getElementById('decrypt-button').addEventListener(
     }
   }
 );
+/* =========================================================
+   VELTRIX TEXT LOCK
+   ========================================================= */
 
+const textLockInput = document.getElementById('text-lock-input');
+const textLockEncryptPassword = document.getElementById('text-lock-encrypt-password');
+const textLockEncryptedOutput = document.getElementById('text-lock-encrypted-output');
+const textLockEncryptButton = document.getElementById('text-lock-encrypt-button');
+const textLockCopyButton = document.getElementById('text-lock-copy-button');
+const textLockEncryptStatus = document.getElementById('text-lock-encrypt-status');
+
+const textLockCipherInput = document.getElementById('text-lock-cipher-input');
+const textLockDecryptPassword = document.getElementById('text-lock-decrypt-password');
+const textLockDecryptedOutput = document.getElementById('text-lock-decrypted-output');
+const textLockDecryptButton = document.getElementById('text-lock-decrypt-button');
+const textLockDecryptStatus = document.getElementById('text-lock-decrypt-status');
+
+const TEXT_LOCK_PREFIX = 'VELTRIX-TEXT-1:';
+
+
+async function encryptTextLock(text, password) {
+  if (!crypto.subtle) {
+    throw Error('Kryptografie ist nicht verfügbar.');
+  }
+
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+
+  const key = await keyFor(password, salt);
+
+  const encrypted = await crypto.subtle.encrypt(
+    { name: 'AES-GCM', iv },
+    key,
+    te.encode(text)
+  );
+
+  const payload = {
+    format: 'VELTRIX-TEXT-1',
+    salt: b64(salt),
+    iv: b64(iv),
+    data: b64(new Uint8Array(encrypted))
+  };
+
+  return TEXT_LOCK_PREFIX + b64(
+    te.encode(JSON.stringify(payload))
+  );
+}
+
+
+async function decryptTextLock(cipherText, password) {
+  if (!crypto.subtle) {
+    throw Error('Kryptografie ist nicht verfügbar.');
+  }
+
+  if (!cipherText.startsWith(TEXT_LOCK_PREFIX)) {
+    throw Error('Ungültiges VELTRIX TEXT LOCK-Format.');
+  }
+
+  let payload;
+
+  try {
+    payload = JSON.parse(
+      td.decode(
+        unb64(cipherText.slice(TEXT_LOCK_PREFIX.length).trim())
+      )
+    );
+  } catch {
+    throw Error('Der verschlüsselte Text ist beschädigt.');
+  }
+
+  if (
+    payload.format !== 'VELTRIX-TEXT-1' ||
+    typeof payload.salt !== 'string' ||
+    typeof payload.iv !== 'string' ||
+    typeof payload.data !== 'string'
+  ) {
+    throw Error('Ungültiges Textformat.');
+  }
+
+  const key = await keyFor(password, unb64(payload.salt));
+
+  const decrypted = await crypto.subtle.decrypt(
+    {
+      name: 'AES-GCM',
+      iv: unb64(payload.iv)
+    },
+    key,
+    unb64(payload.data)
+  );
+
+  return td.decode(decrypted);
+}
+
+
+/* TEXT VERSCHLÜSSELN */
+
+if (textLockEncryptButton) {
+  textLockEncryptButton.addEventListener('click', async () => {
+    const text = textLockInput.value;
+    const password = textLockEncryptPassword.value;
+
+    if (!text.trim()) {
+      return msg(textLockEncryptStatus, 'Bitte einen Text eingeben.');
+    }
+
+    if (password.length < 12) {
+      return msg(
+        textLockEncryptStatus,
+        'Das Passwort muss mindestens 12 Zeichen lang sein.'
+      );
+    }
+
+    try {
+      msg(textLockEncryptStatus, 'Verschlüsselung läuft …');
+
+      const result = await encryptTextLock(text, password);
+
+      textLockEncryptedOutput.value = result;
+
+      msg(
+        textLockEncryptStatus,
+        'Text erfolgreich verschlüsselt.',
+        true
+      );
+
+    } catch (error) {
+      msg(
+        textLockEncryptStatus,
+        error.message || 'Verschlüsselung fehlgeschlagen.'
+      );
+    }
+  });
+}
+
+
+/* TEXT ENTSCHLÜSSELN */
+
+if (textLockDecryptButton) {
+  textLockDecryptButton.addEventListener('click', async () => {
+    const cipherText = textLockCipherInput.value.trim();
+    const password = textLockDecryptPassword.value;
+
+    if (!cipherText || !password) {
+      return msg(
+        textLockDecryptStatus,
+        'Bitte Text und Passwort eingeben.'
+      );
+    }
+
+    try {
+      msg(textLockDecryptStatus, 'Entschlüsselung läuft …');
+
+      const result = await decryptTextLock(cipherText, password);
+
+      textLockDecryptedOutput.value = result;
+
+      msg(
+        textLockDecryptStatus,
+        'Text erfolgreich entschlüsselt.',
+        true
+      );
+
+    } catch {
+      textLockDecryptedOutput.value = '';
+
+      msg(
+        textLockDecryptStatus,
+        'Entschlüsselung fehlgeschlagen: Passwort falsch oder Text beschädigt.'
+      );
+    }
+  });
+}
+
+
+/* VERSCHLÜSSELTEN TEXT KOPIEREN */
+
+if (textLockCopyButton) {
+  textLockCopyButton.addEventListener('click', async () => {
+    const text = textLockEncryptedOutput.value;
+
+    if (!text) {
+      return msg(
+        textLockEncryptStatus,
+        'Kein verschlüsselter Text vorhanden.'
+      );
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+
+      msg(
+        textLockEncryptStatus,
+        'Text wurde kopiert.',
+        true
+      );
+
+    } catch {
+      msg(
+        textLockEncryptStatus,
+        'Kopieren nicht möglich. Bitte manuell kopieren.'
+      );
+    }
+  });
+}
 
 /* =========================================================
    DATABASE
