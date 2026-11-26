@@ -43,6 +43,10 @@
         <span class="nav-symbol">▣</span> Verschlüsseln
       </button>
 
+      <button class="nav-item" data-view="text-lock">
+  <span class="nav-symbol">⌁</span> TEXT LOCK
+</button>
+
       <button class="nav-item" data-view="safe">
         <span class="nav-symbol">▤</span> Tresor
       </button>
@@ -269,6 +273,94 @@
           oder Entschlüsseln benötigt.
         </div>
       </section>
+      
+<!-- TEXT LOCK -->
+<section class="view" id="view-text-lock">
+
+  <div class="page-intro">
+    <div>
+      <div class="eyebrow">VELTRIX / TEXT LOCK</div>
+      <h2>Text verschlüsseln</h2>
+      <p>Verschlüssele kurze Nachrichten direkt in deinem Browser.</p>
+    </div>
+    <div class="intro-icon">⌁</div>
+  </div>
+
+  <div class="vault-grid">
+
+    <article class="panel">
+      <div class="panel-title">
+        <span class="step-number">01</span>
+        <div>
+          <h3>Text verschlüsseln</h3>
+          <p>Schütze deine Nachricht mit einem Passwort.</p>
+        </div>
+      </div>
+
+      <label for="text-lock-input">Dein Text</label>
+      <textarea id="text-lock-input" rows="6"
+        placeholder="Schreibe hier deine Nachricht ..."></textarea>
+
+      <label for="text-lock-encrypt-password">Verschlüsselungspasswort</label>
+      <input id="text-lock-encrypt-password" type="password"
+        placeholder="Mindestens 12 Zeichen" minlength="12">
+
+      <button id="text-lock-encrypt-button"
+        class="button button-primary button-full">
+        Text verschlüsseln
+      </button>
+
+      <label for="text-lock-encrypted-output">Verschlüsselter Text</label>
+      <textarea id="text-lock-encrypted-output" rows="6"
+        placeholder="Hier erscheint das Ergebnis ..." readonly></textarea>
+
+      <button id="text-lock-copy-button"
+        class="button button-secondary button-full" type="button">
+        Text kopieren
+      </button>
+
+      <div id="text-lock-encrypt-status"
+        class="status-message" role="status"></div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-title">
+        <span class="step-number step-muted">02</span>
+        <div>
+          <h3>Text entschlüsseln</h3>
+          <p>Stelle deine Nachricht wieder her.</p>
+        </div>
+      </div>
+
+      <label for="text-lock-cipher-input">Verschlüsselter Text</label>
+      <textarea id="text-lock-cipher-input" rows="6"
+        placeholder="Verschlüsselten Text einfügen ..."></textarea>
+
+      <label for="text-lock-decrypt-password">Passwort</label>
+      <input id="text-lock-decrypt-password" type="password"
+        placeholder="Passwort eingeben">
+
+      <button id="text-lock-decrypt-button"
+        class="button button-secondary button-full">
+        Text entschlüsseln
+      </button>
+
+      <label for="text-lock-decrypted-output">Entschlüsselter Text</label>
+      <textarea id="text-lock-decrypted-output" rows="6"
+        placeholder="Hier erscheint deine Nachricht ..." readonly></textarea>
+
+      <div id="text-lock-decrypt-status"
+        class="status-message" role="status"></div>
+    </article>
+
+  </div>
+
+  <div class="processing-note">
+    <span>◈</span>
+    Deine Nachrichten werden lokal in deinem Browser verarbeitet.
+  </div>
+
+</section>
 
       <!-- VAULT -->
       <section class="view" id="view-safe">
