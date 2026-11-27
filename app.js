@@ -17,6 +17,7 @@ const titles = {
   'text-lock': 'TEXT LOCK',
   safe: 'Tresor',
   privacy: 'Sicherheit & Info',
+  workspace: 'Workspace',
 };
 
 function showView(name) {
