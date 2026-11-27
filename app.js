@@ -2,8 +2,7 @@
 'use strict';
 
 /* =========================================================
-   VELTRIX – LOCAL WORKSPACE
-   Free Vault + Multiple Vaults (Pro Development)
+   VELTRIX – LOCAL VAULT
    ========================================================= */
 
 /* NAVIGATION */
@@ -15,10 +14,9 @@ const title = document.getElementById('page-title');
 const titles = {
   home: 'Übersicht',
   vault: 'Verschlüsseln',
-   'text-lock': 'TEXT LOCK',
-safe: 'Tresor',
+  'text-lock': 'TEXT LOCK',
+  safe: 'Tresor',
   privacy: 'Sicherheit & Info',
-  pro: 'VELTRIX Pro'
 };
 
 function showView(name) {
@@ -289,6 +287,8 @@ document.getElementById('decrypt-button').addEventListener(
     }
   }
 );
+
+
 /* =========================================================
    VELTRIX TEXT LOCK
    ========================================================= */
@@ -494,19 +494,18 @@ if (textLockCopyButton) {
   });
 }
 
+
 /* =========================================================
    DATABASE
    Version 2:
    - Existing items are preserved
-   - Existing items are assigned to VELTRIX Free
-   - New vaults store is added
+   - Existing items are assigned to the default local vault
    ========================================================= */
 
 const DB_NAME = 'veltrix-local-vault-v1';
 const DB_VERSION = 2;
 
 const STORE = 'items';
-const VAULT_STORE = 'vaults';
 
 const FREE_VAULT_ID = 'free-default';
 
@@ -528,24 +527,7 @@ function openDB() {
         itemStore = transaction.objectStore(STORE);
       }
 
-      let vaultStore;
-
-      if (!db.objectStoreNames.contains(VAULT_STORE)) {
-        vaultStore = db.createObjectStore(VAULT_STORE, {
-          keyPath: 'id'
-        });
-
-        vaultStore.add({
-          id: FREE_VAULT_ID,
-          name: 'VELTRIX Free',
-          kind: 'free',
-          created: Date.now()
-        });
-      } else {
-        vaultStore = transaction.objectStore(VAULT_STORE);
-      }
-
-      // Assign existing files to the original Free vault.
+      // Assign existing files to the default local vault.
       const cursorRequest = itemStore.openCursor();
 
       cursorRequest.onsuccess = () => {
@@ -564,18 +546,10 @@ function openDB() {
       };
     };
 
-    request.onsuccess = async () => {
+    request.onsuccess = () => {
       const db = request.result;
-
       db.onversionchange = () => db.close();
-
-      try {
-        await ensureDefaultVault(db);
-        resolve(db);
-      } catch (error) {
-        db.close();
-        reject(error);
-      }
+      resolve(db);
     };
 
     request.onerror = () => reject(request.error);
@@ -589,30 +563,6 @@ function requestResult(request) {
   return new Promise((resolve, reject) => {
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
-  });
-}
-
-async function ensureDefaultVault(db) {
-  const transaction = db.transaction(VAULT_STORE, 'readwrite');
-  const store = transaction.objectStore(VAULT_STORE);
-
-  const existing = await requestResult(
-    store.get(FREE_VAULT_ID)
-  );
-
-  if (!existing) {
-    store.add({
-      id: FREE_VAULT_ID,
-      name: 'VELTRIX Free',
-      kind: 'free',
-      created: Date.now()
-    });
-  }
-
-  await new Promise((resolve, reject) => {
-    transaction.oncomplete = resolve;
-    transaction.onerror = () => reject(transaction.error);
-    transaction.onabort = () => reject(transaction.error);
   });
 }
 
@@ -771,11 +721,7 @@ function createFileRow(item, passwordInput, statusElement) {
 
       msg(statusElement, 'Datei aus dem lokalen Tresor gelöscht.', true);
 
-      if (item.vaultId === FREE_VAULT_ID || !item.vaultId) {
-        renderSafe();
-      } else {
-        renderProVaults();
-      }
+      renderSafe();
     } catch (error) {
       msg(statusElement, 'Die Datei konnte nicht gelöscht werden.');
     }
@@ -851,27 +797,6 @@ document.getElementById('safe-refresh').addEventListener(
 );
 
 
-
-/* =========================================================
-   PRO – MULTIPLE VAULTS (VORERST DEAKTIVIERT)
-   ========================================================= */
-
-async function renderProVaults() {
-  const proManager = document.getElementById('pro-vault-manager');
-
-  if (!proManager) return;
-
-  // Entfernt eventuell vorhandene interaktive Pro-Tresor-Steuerungen.
-  const controls = proManager.querySelector('.pro-vault-controls');
-
-  if (controls) {
-    controls.remove();
-  }
-
-  // Die statische Pro-Vorschau in der HTML bleibt erhalten.
-}
-
-
 /* =========================================================
    INITIALIZATION
    ========================================================= */
@@ -882,7 +807,6 @@ async function initializeVeltrix() {
     db.close();
 
     await renderSafe();
-    await renderProVaults();
 
     if (location.hash && titles[location.hash.slice(1)]) {
       showView(location.hash.slice(1));
@@ -898,4 +822,3 @@ async function initializeVeltrix() {
 }
 
 initializeVeltrix();
-
