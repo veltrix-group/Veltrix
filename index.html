@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
 
-  <title>VELTRIX – Local Tools & Pro Experience</title>
+  <title>VELTRIX – Local Tools</title>
 
-  <meta name="description" content="VELTRIX bietet lokale Dateiverwaltung, Verschlüsselung und eine erweiterte Premium-Erfahrung.">
+  <meta name="description" content="VELTRIX bietet lokale Dateiverwaltung und Verschlüsselung direkt auf deinem Gerät.">
 
   <meta name="robots" content="index, follow">
 
@@ -44,8 +45,8 @@
       </button>
 
       <button class="nav-item" data-view="text-lock">
-  <span class="nav-symbol">⌁</span> TEXT LOCK
-</button>
+        <span class="nav-symbol">⌁</span> TEXT LOCK
+      </button>
 
       <button class="nav-item" data-view="safe">
         <span class="nav-symbol">▤</span> Tresor
@@ -53,12 +54,6 @@
 
       <button class="nav-item" data-view="privacy">
         <span class="nav-symbol">◈</span> Sicherheit & Info
-      </button>
-
-      <button class="nav-item pro-nav-item" data-view="pro">
-        <span class="nav-symbol">✦</span>
-        VELTRIX
-        <span class="pro-nav-label">PRO</span>
       </button>
 
       <div class="sidebar-bottom">
@@ -161,7 +156,7 @@
             <span class="card-footnote">Offline nach dem Start nutzbar</span>
           </div>
 
-   
+        </div>
 
         <footer>
           VELTRIX <span>•</span> LOCAL VAULT
@@ -263,94 +258,94 @@
           oder Entschlüsseln benötigt.
         </div>
       </section>
-      
-<!-- TEXT LOCK -->
-<section class="view" id="view-text-lock">
 
-  <div class="page-intro">
-    <div>
-      <div class="eyebrow">VELTRIX / TEXT LOCK</div>
-      <h2>Text verschlüsseln</h2>
-      <p>Verschlüssele kurze Nachrichten direkt in deinem Browser.</p>
-    </div>
-    <div class="intro-icon">⌁</div>
-  </div>
+      <!-- TEXT LOCK -->
+      <section class="view" id="view-text-lock">
 
-  <div class="vault-grid">
-
-    <article class="panel">
-      <div class="panel-title">
-        <span class="step-number">01</span>
-        <div>
-          <h3>Text verschlüsseln</h3>
-          <p>Schütze deine Nachricht mit einem Passwort.</p>
+        <div class="page-intro">
+          <div>
+            <div class="eyebrow">VELTRIX / TEXT LOCK</div>
+            <h2>Text verschlüsseln</h2>
+            <p>Verschlüssele kurze Nachrichten direkt in deinem Browser.</p>
+          </div>
+          <div class="intro-icon">⌁</div>
         </div>
-      </div>
 
-      <label for="text-lock-input">Dein Text</label>
-      <textarea id="text-lock-input" rows="6"
-        placeholder="Schreibe hier deine Nachricht ..."></textarea>
+        <div class="vault-grid">
 
-      <label for="text-lock-encrypt-password">Verschlüsselungspasswort</label>
-      <input id="text-lock-encrypt-password" type="password"
-        placeholder="Mindestens 12 Zeichen" minlength="12">
+          <article class="panel">
+            <div class="panel-title">
+              <span class="step-number">01</span>
+              <div>
+                <h3>Text verschlüsseln</h3>
+                <p>Schütze deine Nachricht mit einem Passwort.</p>
+              </div>
+            </div>
 
-      <button id="text-lock-encrypt-button"
-        class="button button-primary button-full">
-        Text verschlüsseln
-      </button>
+            <label for="text-lock-input">Dein Text</label>
+            <textarea id="text-lock-input" rows="6"
+              placeholder="Schreibe hier deine Nachricht ..."></textarea>
 
-      <label for="text-lock-encrypted-output">Verschlüsselter Text</label>
-      <textarea id="text-lock-encrypted-output" rows="6"
-        placeholder="Hier erscheint das Ergebnis ..." readonly></textarea>
+            <label for="text-lock-encrypt-password">Verschlüsselungspasswort</label>
+            <input id="text-lock-encrypt-password" type="password"
+              placeholder="Mindestens 12 Zeichen" minlength="12">
 
-      <button id="text-lock-copy-button"
-        class="button button-secondary button-full" type="button">
-        Text kopieren
-      </button>
+            <button id="text-lock-encrypt-button"
+              class="button button-primary button-full">
+              Text verschlüsseln
+            </button>
 
-      <div id="text-lock-encrypt-status"
-        class="status-message" role="status"></div>
-    </article>
+            <label for="text-lock-encrypted-output">Verschlüsselter Text</label>
+            <textarea id="text-lock-encrypted-output" rows="6"
+              placeholder="Hier erscheint das Ergebnis ..." readonly></textarea>
 
-    <article class="panel">
-      <div class="panel-title">
-        <span class="step-number step-muted">02</span>
-        <div>
-          <h3>Text entschlüsseln</h3>
-          <p>Stelle deine Nachricht wieder her.</p>
+            <button id="text-lock-copy-button"
+              class="button button-secondary button-full" type="button">
+              Text kopieren
+            </button>
+
+            <div id="text-lock-encrypt-status"
+              class="status-message" role="status"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-title">
+              <span class="step-number step-muted">02</span>
+              <div>
+                <h3>Text entschlüsseln</h3>
+                <p>Stelle deine Nachricht wieder her.</p>
+              </div>
+            </div>
+
+            <label for="text-lock-cipher-input">Verschlüsselter Text</label>
+            <textarea id="text-lock-cipher-input" rows="6"
+              placeholder="Verschlüsselten Text einfügen ..."></textarea>
+
+            <label for="text-lock-decrypt-password">Passwort</label>
+            <input id="text-lock-decrypt-password" type="password"
+              placeholder="Passwort eingeben">
+
+            <button id="text-lock-decrypt-button"
+              class="button button-secondary button-full">
+              Text entschlüsseln
+            </button>
+
+            <label for="text-lock-decrypted-output">Entschlüsselter Text</label>
+            <textarea id="text-lock-decrypted-output" rows="6"
+              placeholder="Hier erscheint deine Nachricht ..." readonly></textarea>
+
+            <div id="text-lock-decrypt-status"
+              class="status-message" role="status"></div>
+          </article>
+
         </div>
-      </div>
 
-      <label for="text-lock-cipher-input">Verschlüsselter Text</label>
-      <textarea id="text-lock-cipher-input" rows="6"
-        placeholder="Verschlüsselten Text einfügen ..."></textarea>
+        <div class="processing-note">
+          <span>◈</span>
+          Deine Nachrichten werden lokal in deinem Browser verarbeitet.
+        </div>
 
-      <label for="text-lock-decrypt-password">Passwort</label>
-      <input id="text-lock-decrypt-password" type="password"
-        placeholder="Passwort eingeben">
-
-      <button id="text-lock-decrypt-button"
-        class="button button-secondary button-full">
-        Text entschlüsseln
-      </button>
-
-      <label for="text-lock-decrypted-output">Entschlüsselter Text</label>
-      <textarea id="text-lock-decrypted-output" rows="6"
-        placeholder="Hier erscheint deine Nachricht ..." readonly></textarea>
-
-      <div id="text-lock-decrypt-status"
-        class="status-message" role="status"></div>
-    </article>
-
-  </div>
-
-  <div class="processing-note">
-    <span>◈</span>
-    Deine Nachrichten werden lokal in deinem Browser verarbeitet.
-  </div>
-
-</section>
+      </section>
 
       <!-- VAULT -->
       <section class="view" id="view-safe">
@@ -423,71 +418,6 @@
           lokale Tresordateien entfernen.
         </div>
 
-        <!-- PRO MULTIPLE VAULTS -->
-        <div class="section-head pro-vault-heading">
-          <div>
-            <div class="eyebrow pro-eyebrow">VELTRIX PRO</div>
-            <h3>Multiple Vaults</h3>
-          </div>
-          <span class="pro-coming-label">PRO FEATURE</span>
-        </div>
-
-        <div class="panel pro-vault-manager" id="pro-vault-manager">
-
-          <div class="panel-title">
-            <span class="step-number">✦</span>
-            <div>
-              <h3>Mehrere Tresore. Ein Workspace.</h3>
-              <p>
-                Organisiere deine Dateien in getrennten,
-                individuell geschützten Bereichen.
-              </p>
-            </div>
-          </div>
-
-          <div class="pro-vault-preview">
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Privater Tresor</strong>
-                <small>Persönliche Dateien</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Schule</strong>
-                <small>Dokumente und Projekte</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-            <div class="pro-vault-preview-item">
-              <span class="feature-icon">▤</span>
-              <div>
-                <strong>Projekte</strong>
-                <small>Eigene Arbeitsbereiche</small>
-              </div>
-              <span class="pro-feature-state">PREVIEW</span>
-            </div>
-
-          </div>
-
-          <div class="processing-note">
-            <span>◈</span>
-            Die Verwaltung mehrerer Tresore befindet sich in Entwicklung.
-            Deine bisherigen Dateien bleiben davon unberührt.
-          </div>
-
-          <button class="button button-secondary button-full"
-                  data-go="pro">
-            VELTRIX Pro entdecken <span>↗</span>
-          </button>
-
-        </div>
       </section>
 
       <!-- PRIVACY -->
@@ -502,203 +432,63 @@
           <div class="intro-icon">◈</div>
         </div>
 
-       
-<div class="info-list">
+        <div class="info-list">
 
-  <article>
-    <span class="info-check">✓</span>
-    <div>
-      <h3>Lokale Verarbeitung</h3>
-      <p>Die ausgewählte Datei wird direkt in deinem Browser verarbeitet und nicht an einen VELTRIX-Server gesendet.</p>
-    </div>
-  </article>
-
-  <article>
-    <span class="info-check">✓</span>
-    <div>
-      <h3>AES-256-GCM</h3>
-      <p>Die Dateiinhalte werden mit authentifizierter AES-GCM-Verschlüsselung geschützt.</p>
-    </div>
-  </article>
-
-  <article>
-    <span class="info-check">✓</span>
-    <div>
-      <h3>Passwortbasierter Schlüssel</h3>
-      <p>PBKDF2-SHA-256 und ein zufälliger Salt leiten aus deinem Passwort den Verschlüsselungsschlüssel ab.</p>
-    </div>
-  </article>
-
-  <article>
-    <span class="info-check">✓</span>
-    <div>
-      <h3>Einfacher Dateiexport</h3>
-      <p>Verschlüsselte und wiederhergestellte Dateien werden als Downloads gespeichert. Deine ausgewählte Originaldatei bleibt unverändert.</p>
-    </div>
-  </article>
-
-  <article class="info-legal-card">
-    <a class="info-legal-link" href="impressum.html">
-      <span class="info-check">✓</span>
-      <div>
-        <h3>Impressum</h3>
-        <p>Informationen über den Betreiber, die Website und Kontaktmöglichkeiten.</p>
-        <span class="info-card-action">Impressum ansehen ↗</span>
-      </div>
-    </a>
-  </article>
-
-  <article class="info-legal-card">
-    <a class="info-legal-link" href="datenschutz.html">
-      <span class="info-check">✓</span>
-      <div>
-        <h3>Datenschutzerklärung</h3>
-        <p>Erfahre, wie VELTRIX mit personenbezogenen Daten und deiner Privatsphäre umgeht.</p>
-        <span class="info-card-action">Datenschutz ansehen ↗</span>
-      </div>
-    </a>
-  </article>
-
-</div>
-
-            
-      </section>
-
-      <!-- PRO -->
-      
-
-      <section class="view pro-view" id="view-pro">
-
-        <div class="pro-hero">
-
-          <div class="pro-hero-copy">
-            <div class="pro-kicker">
-              <span class="pro-kicker-line"></span>
-              VELTRIX / PREMIUM EXPERIENCE
+          <article>
+            <span class="info-check">✓</span>
+            <div>
+              <h3>Lokale Verarbeitung</h3>
+              <p>Die ausgewählte Datei wird direkt in deinem Browser verarbeitet und nicht an einen VELTRIX-Server gesendet.</p>
             </div>
-
-            <h2>More control.<br><em>More possibilities.</em></h2>
-
-            <p>
-              Discover the next level of the VELTRIX experience.
-              Powerful tools for a more organized, personal
-              and controlled workspace.
-            </p>
-
-            <span class="pro-status">COMING SOON</span>
-          </div>
-
-          <div class="pro-orb" aria-hidden="true">
-            <div class="pro-orb-ring"></div>
-            <div class="pro-orb-core">V</div>
-            <span class="pro-orb-spark pro-spark-one"></span>
-            <span class="pro-orb-spark pro-spark-two"></span>
-          </div>
-
-          <div class="pro-hero-foot">
-            <span>VELTRIX PRO</span>
-            <span class="pro-hero-line"></span>
-            <span>BUILT FOR MORE</span>
-          </div>
-        </div>
-
-        <div class="pro-section-heading">
-          <div>
-            <div class="eyebrow pro-eyebrow">THE PREMIUM EXPERIENCE</div>
-            <h3>Designed for those who want more.</h3>
-          </div>
-          <span class="pro-coming-label">PLANNED FEATURES</span>
-        </div>
-
-        <div class="pro-feature-grid">
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▣</span>
-            <span class="pro-feature-number">01 / STORAGE</span>
-            <h4>Multiple Vaults</h4>
-            <p>Create separate spaces for different projects, documents and personal files.</p>
-            <span class="pro-feature-state">IN DEVELOPMENT</span>
           </article>
 
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">⌕</span>
-            <span class="pro-feature-number">02 / ORGANIZATION</span>
-            <h4>Advanced Organization</h4>
-            <p>Use custom tags, advanced filters and saved searches to find things faster.</p>
-            <span class="pro-feature-state">PLANNED</span>
+          <article>
+            <span class="info-check">✓</span>
+            <div>
+              <h3>AES-256-GCM</h3>
+              <p>Die Dateiinhalte werden mit authentifizierter AES-GCM-Verschlüsselung geschützt.</p>
+            </div>
           </article>
 
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▤</span>
-            <span class="pro-feature-number">03 / PRODUCTIVITY</span>
-            <h4>Bulk Actions</h4>
-            <p>Manage multiple files in fewer steps with carefully designed batch actions.</p>
-            <span class="pro-feature-state">PLANNED</span>
+          <article>
+            <span class="info-check">✓</span>
+            <div>
+              <h3>Passwortbasierter Schlüssel</h3>
+              <p>PBKDF2-SHA-256 und ein zufälliger Salt leiten aus deinem Passwort den Verschlüsselungsschlüssel ab.</p>
+            </div>
           </article>
 
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">✧</span>
-            <span class="pro-feature-number">04 / PERSONALIZATION</span>
-            <h4>Personalization Studio</h4>
-            <p>Customize your workspace with themes, accent colors and layout options.</p>
-            <span class="pro-feature-state">PLANNED</span>
+          <article>
+            <span class="info-check">✓</span>
+            <div>
+              <h3>Einfacher Dateiexport</h3>
+              <p>Verschlüsselte und wiederhergestellte Dateien werden als Downloads gespeichert. Deine ausgewählte Originaldatei bleibt unverändert.</p>
+            </div>
           </article>
 
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">⤓</span>
-            <span class="pro-feature-number">05 / BACKUP</span>
-            <h4>Secure Backup & Restore</h4>
-            <p>Plan and manage backups for supported workspace data and settings.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
+          <article class="info-legal-card">
+            <a class="info-legal-link" href="impressum.html">
+              <span class="info-check">✓</span>
+              <div>
+                <h3>Impressum</h3>
+                <p>Informationen über den Betreiber, die Website und Kontaktmöglichkeiten.</p>
+                <span class="info-card-action">Impressum ansehen ↗</span>
+              </div>
+            </a>
           </article>
 
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">◷</span>
-            <span class="pro-feature-number">06 / HISTORY</span>
-            <h4>Activity History</h4>
-            <p>Review a local history of important workspace changes and actions.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">◈</span>
-            <span class="pro-feature-number">07 / CONTROL</span>
-            <h4>Security Center</h4>
-            <p>See relevant security and storage information in one clear overview.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
-          </article>
-
-          <article class="pro-feature-card">
-            <span class="pro-feature-icon">▦</span>
-            <span class="pro-feature-number">08 / WORKSPACE</span>
-            <h4>Advanced Dashboard</h4>
-            <p>Arrange shortcuts and workspace elements around the way you work.</p>
-            <span class="pro-feature-state">FUTURE UPDATE</span>
+          <article class="info-legal-card">
+            <a class="info-legal-link" href="datenschutz.html">
+              <span class="info-check">✓</span>
+              <div>
+                <h3>Datenschutzerklärung</h3>
+                <p>Erfahre, wie VELTRIX mit personenbezogenen Daten und deiner Privatsphäre umgeht.</p>
+                <span class="info-card-action">Datenschutz ansehen ↗</span>
+              </div>
+            </a>
           </article>
 
         </div>
-
-        <div class="pro-bottom-banner">
-          <div>
-            <div class="pro-kicker">THE NEXT STEP</div>
-            <h3>VELTRIX Pro is in development.</h3>
-            <p>
-              We are shaping a more powerful experience.
-              Feature availability and pricing will be announced
-              when the product is ready.
-            </p>
-          </div>
-          <span class="pro-banner-mark">PRO</span>
-        </div>
-
-  
-<div class="pro-cta">
-  <button class="button button-primary button-full" disabled>
-    VELTRIX Pro kaufen · 2,99 €
-  </button>
-  
-</div>
-      
 
       </section>
 
