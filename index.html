@@ -1,111 +1,300 @@
 <!DOCTYPE html>
-<html lang="de" class="h-full bg-slate-950 text-slate-100 antialiased">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Veltrix | Absolut sichere Daten- und Workspace-Lösungen</title>
-    <script src="https://tailwindcss.com"></script>
+    <style>
+        /* Basis-Layout & Hintergrund */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #020617; /* Sehr dunkles Blau-Schwarz */
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            line-height: 1.5;
+        }
+
+        /* Header Navigation */
+        header {
+            border-bottom: 1px solid #0f172a;
+            background-color: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #818cf8, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        nav a {
+            font-size: 14px;
+            text-decoration: none;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        .nav-link-personal {
+            color: #94a3b8;
+        }
+        .nav-link-personal:hover {
+            color: #e2e8f0;
+        }
+        .nav-link-business {
+            color: #818cf8;
+            font-weight: 600;
+        }
+        .nav-link-business:hover {
+            color: #6366f1;
+        }
+
+        /* Hauptbereich (Die Weiche) */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 64px;
+        }
+        .badge {
+            display: inline-block;
+            background-color: rgba(99, 102, 241, 0.1);
+            color: #818cf8;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            margin-bottom: 16px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(to bottom, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        @media (min-width: 640px) {
+            h1 { font-size: 54px; }
+        }
+        .subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Zwei Spalten Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            width: 100%;
+            max-width: 1000px;
+        }
+        @media (min-width: 640px) {
+            .grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* Card-Styles */
+        .card {
+            background-color: rgba(15, 23, 42, 0.5);
+            border: 1px solid #1e293b;
+            border-radius: 16px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: #334155;
+            background-color: #0f172a;
+        }
+        .card-business {
+            border: 2px solid #4f46e5;
+            background-color: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
+        }
+        .card-business:hover {
+            border-color: #6366f1;
+            background-color: #0f172a;
+        }
+
+        /* Card Header & Inhalt */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .card-tag {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 9999px;
+        }
+        .tag-free {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        .tag-new {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: #818cf8;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+        .card-description {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        /* Feature Liste */
+        .feature-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        .feature-item {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .check-personal { color: #34d399; margin-right: 8px; font-weight: bold; }
+        .check-business { color: #818cf8; margin-right: 8px; font-weight: bold; }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .btn-personal {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+        .btn-personal:hover {
+            background-color: #334155;
+        }
+        .btn-business {
+            background-color: #4f46e5;
+            color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+        .btn-business:hover {
+            background-color: #6366f1;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #0f172a;
+            background-color: #020617;
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
 </head>
-<body class="flex min-h-full flex-col justify-between font-sans selection:bg-indigo-500 selection:text-white">
+<body>
 
     <!-- Header / Navigation -->
-    <header class="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-2">
-                <!-- Veltrix Logo -->
-                <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">VELTRIX</span>
-            </div>
-            <nav class="flex items-center gap-6">
-                <a href="/personal.html" class="text-sm font-medium text-slate-400 hover:text-slate-200 transition">Für Privatnutzer</a>
-                <a href="/business.html" class="text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition">Für Unternehmen &rarr;</a>
+    <header>
+        <div class="header-container">
+            <div class="logo">VELTRIX</div>
+            <nav>
+                <a href="/personal.html" class="nav-link-personal">Für Privatnutzer</a>
+                <a href="/business.html" class="nav-link-business">Für Unternehmen &rarr;</a>
             </nav>
         </div>
     </header>
 
     <!-- Main Content: Die Weiche -->
-    <main class="flex-1 flex flex-col justify-center items-center px-6 py-16 lg:px-8">
-        <div class="mx-auto max-w-4xl text-center mb-16">
-            <span class="inline-flex items-center rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-medium text-indigo-400 ring-1 ring-inset ring-indigo-500/20 mb-4">
-                Zero-Knowledge Technologie
-            </span>
-            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl bg-gradient-to-b from-white to-slate-400 bg-clip-text text-transparent">
-                Maximale Datensicherheit für Privatsphäre und Unternehmen.
-            </h1>
-            <p class="mt-6 text-lg leading-8 text-slate-400 max-w-2xl mx-auto">
+    <main>
+        <div class="hero">
+            <span class="badge">Zero-Knowledge Technologie</span>
+            <h1>Maximale Datensicherheit für Privatsphäre und Unternehmen.</h1>
+            <p class="subtitle">
                 Egal ob du deine privaten Dateien lokal verschlüsseln möchtest oder einen hochsicheren, kollaborativen Workspace für dein Team suchst – Veltrix hält deine Daten unter deiner Kontrolle.
             </p>
         </div>
 
         <!-- Zwei-Spalten-Layout (Cards) -->
-        <div class="mx-auto grid max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 w-full">
+        <div class="grid">
             
             <!-- Säule 1: Veltrix Personal -->
-            <div class="relative flex flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/50 p-8 shadow-2xl transition duration-300 hover:border-slate-700 hover:bg-slate-900">
+            <div class="card">
                 <div>
-                    <div class="flex items-center justify-between gap-x-4">
-                        <h2 class="text-lg font-bold leading-8 text-white">Veltrix Personal</h2>
-                        <span class="rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold leading-5 text-emerald-400 ring-1 ring-inset ring-emerald-500/20">Free / Open Source</span>
+                    <div class="card-header">
+                        <div class="card-title">Veltrix Personal</div>
+                        <span class="card-tag tag-free">Free / Open Source</span>
                     </div>
-                    <p class="mt-4 text-sm leading-6 text-slate-400">
+                    <p class="card-description">
                         Der bewährte, rein browserbasierte Dateitresor. Deine Dateien werden direkt auf deinem Gerät via AES-256-GCM verschlüsselt. Niemand außer dir hat Zugriff.
                     </p>
-                    <ul class="mt-6 space-y-3 text-sm leading-6 text-slate-300">
-                        <li class="flex gap-x-3">
-                            <span class="text-emerald-400">&#10003;</span> 100% lokale Verschlüsselung
-                        </li>
-                        <li class="flex gap-x-3">
-                            <span class="text-emerald-400">&#10003;</span> Keine Registrierung notwendig
-                        </li>
-                        <li class="flex gap-x-3">
-                            <span class="text-emerald-400">&#10003;</span> Quelloffen auf GitHub
-                        </li>
+                    <ul class="feature-list">
+                        <li class="feature-item"><span class="check-personal">&#10003;</span> 100% lokale Verschlüsselung</li>
+                        <li class="feature-item"><span class="check-personal">&#10003;</span> Keine Registrierung notwendig</li>
+                        <li class="feature-item"><span class="check-personal">&#10003;</span> Quelloffen auf GitHub</li>
                     </ul>
                 </div>
-                <div class="mt-8">
-                    <a href="/personal.html" class="block w-full text-center rounded-lg bg-slate-800 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-600 transition">
-                        Tresor öffnen
-                    </a>
-                </div>
+                <a href="/personal.html" class="btn btn-personal">Tresor öffnen</a>
             </div>
 
             <!-- Säule 2: Veltrix Business -->
-            <div class="relative flex flex-col justify-between rounded-2xl border-2 border-indigo-500 bg-slate-900/80 p-8 shadow-2xl transition duration-300 hover:bg-slate-900 ring-4 ring-indigo-500/10">
+            <div class="card card-business">
                 <div>
-                    <div class="flex items-center justify-between gap-x-4">
-                        <h2 class="text-lg font-bold leading-8 text-white">Veltrix Business</h2>
-                        <span class="rounded-full bg-indigo-500/10 px-2.5 py-1 text-xs font-semibold leading-5 text-indigo-400 ring-1 ring-inset ring-indigo-500/20">Neu: Marktlücke</span>
+                    <div class="card-header">
+                        <div class="card-title">Veltrix Business</div>
+                        <span class="card-tag tag-new">Neu: Marktlücke</span>
                     </div>
-                    <p class="mt-4 text-sm leading-6 text-slate-400">
+                    <p class="card-description">
                         Der kollaborative Business Organizer für datensensible Branchen. Aufgaben, CRM und Dokumente im Team verwalten – geschützt durch echte Ende-zu-Ende-Verschlüsselung.
                     </p>
-                    <ul class="mt-6 space-y-3 text-sm leading-6 text-slate-300">
-                        <li class="flex gap-x-3">
-                            <span class="text-indigo-400">&#10003;</span> E2EE Team-Kollaboration &amp; CRDTs
-                        </li>
-                        <li class="flex gap-x-3">
-                            <span class="text-indigo-400">&#10003;</span> Lokale KI-Workflows (No-Cloud LLMs)
-                        </li>
-                        <li class="flex gap-x-3">
-                            <span class="text-indigo-400">&#10003;</span> Self-Hosted / Docker &amp; DSGVO-Sicher
-                        </li>
-                    </ul>
-                </div>
-                <div class="mt-8">
-                    <a href="/business.html" class="block w-full text-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition shadow-indigo-600/20 shadow-lg">
-                        Mehr erfahren &amp; Beta anfordern
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-900 bg-slate-950 py-6 text-center text-xs text-slate-500">
-        <p>&copy; 2026 Veltrix Group. Alle Rechte vorbehalten. Entwickelt mit Fokus auf mathematische Sicherheit.</p>
-    </footer>
-
-</body>
-</html>
-
-
+                    <ul class="feature-list">
+                        <li class="feature-item"><span class="check-business">&#10003;</span> E2EE Team-Kollaboration &amp; CRDTs</li>
+                        <li class="feature-item"><span class="check-business">&#10003;</span> Lokale KI-Workflows (No-Cloud LLMs)</li>
