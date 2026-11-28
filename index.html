@@ -1,310 +1,648 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltrix | Secure Data Solutions</title>
-    <style>
-        /* Farbpalette definieren */
-        :root {
-            --midnight-navy: #0B132B; /* Satter, tiefer Grundton */
-            --midnight-dark: #070C1B; /* Nuance dunkler für Tiefenwirkung */
-            --steel-blue: #4A90E2;    /* Hochwertiger Akzentton */
-            --steel-muted: #2A4D7C;   /* Dezente Rahmen und Linien */
-            --ice-grey: #D1D5DB;      /* Erstklassige Textlesbarkeit */
-            --white: #FFFFFF;         /* Reine Kontraste */
-        }
+  <link rel="icon" type="image/png" href="logo.png">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
 
-        /* Basis-Reset & Typografie */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--midnight-navy);
-            color: var(--ice-grey);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow-x: hidden;
-        }
+  <title>VELTRIX – Local Tools & Pro Experience</title>
 
-        /* Subtile, edle Animation beim Laden */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  <meta name="description" content="VELTRIX bietet lokale Dateiverwaltung, Verschlüsselung und eine erweiterte Premium-Erfahrung.">
 
-        /* Header & Navigation */
-        header {
-            background-color: var(--midnight-dark);
-            border-b: 1px solid var(--steel-muted);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .app-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--steel-blue);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            color: var(--white);
-            font-size: 16px;
-        }
-        .logo-text {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: -0.5px;
-        }
-        nav a {
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            margin-left: 28px;
-            transition: color 0.25s ease;
-        }
-        .nav-personal { color: var(--ice-grey); }
-        .nav-personal:hover { color: var(--white); }
-        .nav-business { color: var(--steel-blue); font-weight: 600; }
-        .nav-business:hover { color: #6ba4e8; }
+  <meta name="robots" content="index, follow">
 
-        /* Hauptbereich */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            animation: fadeIn 0.8s ease-out;
-        }
-        .hero {
-            text-align: center;
-            max-width: 750px;
-            margin-bottom: 70px;
-        }
-        h1 {
-            font-size: 38px;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: -1px;
-            line-height: 1.25;
-            margin-bottom: 20px;
-        }
-        @media (min-width: 768px) {
-            h1 { font-size: 52px; }
-        }
-        .subtitle {
-            font-size: 18px;
-            color: var(--ice-grey);
-            line-height: 1.6;
-            font-weight: 400;
-        }
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' blob: data:; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
 
-        /* Zwei-Säulen-Layout */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 40px;
-            width: 100%;
-            max-width: 1100px;
-        }
-        @media (min-width: 768px) {
-            .grid { grid-template-columns: 1fr 1fr; }
-        }
-
-        /* Card Design: Ruhig, mathematisch exakt */
-        .card {
-            background-color: var(--midnight-dark);
-            border: 1px solid var(--steel-muted);
-            border-radius: 12px;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--steel-blue);
-        }
-
-        .card-header {
-            margin-bottom: 24px;
-        }
-        .card-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--white);
-            margin-bottom: 12px;
-        }
-        .card-description {
-            font-size: 15px;
-            color: var(--ice-grey);
-            line-height: 1.6;
-        }
-
-        /* Platzhalter für echte Software-Screenshots */
-        .screenshot-container {
-            width: 100%;
-            height: 200px;
-            background-color: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(74, 144, 226, 0.15);
-            border-radius: 8px;
-            margin: 24px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        .screenshot-placeholder {
-            font-size: 13px;
-            color: rgba(209, 213, 219, 0.4);
-            font-style: italic;
-        }
-        /* Wenn du Screenshots hast, ersetzt du das div oben durch:
-           <img src="img/screenshot.png" alt="Veltrix Software" class="screenshot-img"> */
-        .screenshot-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Taktvolle Feature-Listen */
-        .feature-list {
-            list-style: none;
-            margin-bottom: 32px;
-        }
-        .feature-item {
-            font-size: 14px;
-            color: var(--ice-grey);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-        .bullet {
-            color: var(--steel-blue);
-            margin-right: 12px;
-            font-weight: bold;
-        }
-
-        /* Buttons ohne Schnörkel */
-        .btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            text-decoration: none;
-            padding: 14px 24px;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        .btn-personal {
-            background-color: transparent;
-            color: var(--white);
-            border: 1px solid var(--ice-grey);
-        }
-        .btn-personal:hover {
-            background-color: var(--white);
-            color: var(--midnight-navy);
-        }
-        .btn-business {
-            background-color: var(--steel-blue);
-            color: var(--white);
-            border: 1px solid var(--steel-blue);
-        }
-        .btn-business:hover {
-            background-color: #357ABD;
-            border-color: #357ABD;
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--midnight-dark);
-            border-top: 1px solid rgba(7A, 144, 226, 0.1);
-            padding: 24px;
-            text-align: center;
-            font-size: 13px;
-            color: rgba(209, 213, 219, 0.5);
-        }
-    </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
 </head>
+
 <body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-    <!-- Header / Navigation -->
-    <header>
-        <div class="header-container">
-            <div class="logo-area">
-                <!-- Einheitliches, schlichtes App-Icon (V-Symbol im Quadrat) -->
-                <div class="app-icon">V</div>
-                <div class="logo-text">VELTRIX</div>
-            </div>
-            <nav>
-                <a href="/personal.html" class="nav-personal">Für Privatnutzer</a>
-                <a href="/business.html" class="nav-business">Für Unternehmen</a>
-            </nav>
+  <div class="shell">
+
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="VELTRIX Übersicht">
+        <span class="brand-mark">V</span>
+        <span class="brand-copy">
+          <strong>VELTRIX</strong>
+          <small>LOCAL VAULT</small>
+        </span>
+      </a>
+
+      <div class="nav-caption">ARBEITSBEREICH</div>
+
+      <button class="nav-item active" data-view="home">
+        <span class="nav-symbol">⌂</span> Übersicht
+      </button>
+
+      <button class="nav-item" data-view="vault">
+        <span class="nav-symbol">▣</span> Verschlüsseln
+      </button>
+
+      <button class="nav-item" data-view="safe">
+        <span class="nav-symbol">▤</span> Tresor
+      </button>
+
+      <button class="nav-item" data-view="privacy">
+        <span class="nav-symbol">◈</span> Sicherheit & Info
+      </button>
+
+      <button class="nav-item pro-nav-item" data-view="pro">
+        <span class="nav-symbol">✦</span>
+        VELTRIX
+        <span class="pro-nav-label">PRO</span>
+      </button>
+
+      <div class="sidebar-bottom">
+        <span class="status-dot"></span>
+        <div>
+          <strong>Nur lokal</strong>
+          <small>Keine Cloud-Verbindung</small>
         </div>
-    </header>
+      </div>
+    </aside>
 
-    <!-- Main Content -->
-    <main>
+    <main class="main">
+
+      <header class="topbar">
+        <div>
+          <div class="eyebrow">PERSÖNLICHER ARBEITSBEREICH</div>
+          <h1 id="page-title">Übersicht</h1>
+        </div>
+
+        <div class="top-actions">
+          <a class="button button-secondary download-button"
+             href="VELTRIX-Programm.zip" download>
+            Programm herunterladen ↓
+          </a>
+
+          <div class="local-badge">
+            <span class="status-dot"></span>
+            LOKAL AUF DIESEM GERÄT
+          </div>
+        </div>
+      </header>
+
+      <!-- HOME -->
+      <section class="view active" id="view-home">
+
         <div class="hero">
-            <h1>Sicherheitsorientierte Software-Lösungen.</h1>
-            <p class="subtitle">
-                Architekturen mit lokaler Souveränität. Wählen Sie zwischen dem kostenfreien, browserbasierten Dateitresor für Einzelanwender oder dem kollaborativen Workspace für Teams.
+          <div class="hero-copy">
+            <div class="eyebrow hero-eyebrow">VELTRIX / PRIVATE SPACE</div>
+
+            <h2>Deine Dateien.<br><em>Deine Kontrolle.</em></h2>
+
+            <p>
+              Ein privater Dateitresor, der Dateien direkt in deinem
+              Browser verschlüsselt. Kein Konto. Keine Cloud.
+              Deine Originaldateien bleiben unangetastet.
             </p>
+
+            <button class="button button-primary" data-go="vault">
+              Dateitresor öffnen <span>↗</span>
+            </button>
+          </div>
+
+          <div class="hero-art" aria-hidden="true">
+            <div class="halo halo-a"></div>
+            <div class="halo halo-b"></div>
+            <div class="orbit"></div>
+            <div class="gem"><span>V</span></div>
+            <div class="spark spark-a"></div>
+            <div class="spark spark-b"></div>
+          </div>
+
+          <div class="hero-foot">
+            <span>01</span>
+            <span class="hero-line"></span>
+            <span>LOCAL-FIRST SECURITY</span>
+          </div>
         </div>
 
-        <!-- Zwei-Spalten-Layout -->
-        <div class="grid">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">DEIN SYSTEM</div>
+            <h3>Einfach. Lokal. Verschlüsselt.</h3>
+          </div>
+          <span class="quiet">Keine Anmeldung erforderlich</span>
+        </div>
+
+        <div class="feature-grid">
+
+          <button class="feature-card" data-go="vault">
+            <span class="feature-icon">▣</span>
+            <span class="feature-tag">01 / DATEIEN</span>
+            <h4>Dateitresor</h4>
+            <p>Verschlüssele eine Datei oder stelle sie mit deinem Passwort wieder her.</p>
+            <span class="card-arrow">↗</span>
+          </button>
+
+          <div class="feature-card static-card">
+            <span class="feature-icon">⌘</span>
+            <span class="feature-tag">02 / VERSCHLÜSSELUNG</span>
+            <h4>AES-256-GCM</h4>
+            <p>Authentifizierte Verschlüsselung mit passwortbasierter Schlüsselableitung.</p>
+            <span class="card-footnote">Browser Web Crypto API</span>
+          </div>
+
+          <div class="feature-card static-card">
+            <span class="feature-icon">◈</span>
+            <span class="feature-tag">03 / PRIVATSPHÄRE</span>
+            <h4>Auf deinem Gerät</h4>
+            <p>Dateiinhalte werden nicht an einen VELTRIX-Server hochgeladen.</p>
+            <span class="card-footnote">Offline nach dem Start nutzbar</span>
+          </div>
+
+          <a class="feature-card tor-feature"
+             href="https://www.torproject.org/download/"
+             target="_blank"
+             rel="noopener noreferrer">
+            <div class="feature-icon">◉</div>
+            <h3>Tor Browser</h3>
+            <p>Privater surfen.</p>
+            <span class="feature-link">Herunterladen ↗</span>
+          </a>
+
+        </div>
+
+        <footer>
+          VELTRIX <span>•</span> LOCAL VAULT
+          <span class="footer-right">BUILD 1.0</span>
+        </footer>
+      </section>
+
+      <!-- ENCRYPTION -->
+      <section class="view" id="view-vault">
+
+        <div class="page-intro">
+          <div>
+            <div class="eyebrow">PRIVATE STORAGE</div>
+            <h2>Dateitresor</h2>
+            <p>
+              Erstelle eine verschlüsselte <strong>.vltx</strong>-Kopie
+              oder entschlüssele eine Datei, die du bereits mit VELTRIX erstellt hast.
+            </p>
+          </div>
+          <div class="intro-icon">▣</div>
+        </div>
+
+        <div class="vault-grid">
+
+          <article class="panel">
+            <div class="panel-title">
+              <span class="step-number">01</span>
+              <div>
+                <h3>Datei verschlüsseln</h3>
+                <p>Wähle die Datei, die du schützen möchtest.</p>
+              </div>
+            </div>
+
+            <label for="encrypt-file">Datei</label>
+            <input id="encrypt-file" type="file">
+
+            <label for="encrypt-password">Passwort</label>
+            <input id="encrypt-password" type="password"
+                   autocomplete="new-password"
+                   placeholder="Mindestens 12 Zeichen"
+                   minlength="12">
+
+            <div class="password-hint">
+              Verwende ein langes, einzigartiges Passwort.
+            </div>
+
+            <button id="encrypt-button"
+                    class="button button-primary button-full">
+              <span>Verschlüsseln & herunterladen</span>
+              <span>↓</span>
+            </button>
+
+            <div id="encrypt-status"
+                 class="status-message"
+                 role="status"
+                 aria-live="polite"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-title">
+              <span class="step-number step-muted">02</span>
+              <div>
+                <h3>Datei entschlüsseln</h3>
+                <p>Stelle deine Originaldatei mit dem Passwort wieder her.</p>
+              </div>
+            </div>
+
+            <label for="decrypt-file">VELTRIX-Datei (.vltx)</label>
+            <input id="decrypt-file" type="file"
+                   accept=".vltx,application/octet-stream">
+
+            <label for="decrypt-password">Passwort</label>
+            <input id="decrypt-password" type="password"
+                   autocomplete="current-password"
+                   placeholder="Passwort eingeben">
+
+            <div class="password-hint">
+              Es wird nur die ausgewählte Datei verarbeitet.
+            </div>
+
+            <button id="decrypt-button"
+                    class="button button-secondary button-full">
+              <span>Entschlüsseln & herunterladen</span>
+              <span>↓</span>
+            </button>
+
+            <div id="decrypt-status"
+                 class="status-message"
+                 role="status"
+                 aria-live="polite"></div>
+          </article>
+
+        </div>
+
+        <div class="processing-note">
+          <span>◈</span>
+          Die Verarbeitung findet in deinem Browser statt.
+          Es wird keine Netzwerkverbindung zum Verschlüsseln
+          oder Entschlüsseln benötigt.
+        </div>
+      </section>
+
+      <!-- VAULT -->
+      <section class="view" id="view-safe">
+
+        <div class="page-intro">
+          <div>
+            <div class="eyebrow">PRIVATE FILE STORAGE</div>
+            <h2>Dein Tresor</h2>
+            <p>
+              Füge Dateien hinzu. Sie werden vor dem Speichern lokal
+              verschlüsselt und bleiben in diesem Browser auf diesem Gerät.
+            </p>
+          </div>
+          <div class="intro-icon">▤</div>
+        </div>
+
+        <!-- FREE VAULT -->
+        <div class="panel vault-manager">
+
+          <div class="panel-title">
+            <span class="step-number">01</span>
+            <div>
+              <h3>Dein persönlicher Tresor</h3>
+              <p>Die bewährte VELTRIX-Funktion für deinen lokalen Speicher.</p>
+            </div>
+          </div>
+
+          <label for="safe-files">Dateien auswählen</label>
+          <input id="safe-files" type="file" multiple>
+
+          <label for="safe-password">Tresor-Passwort</label>
+          <input id="safe-password" type="password"
+                 autocomplete="new-password"
+                 placeholder="Mindestens 12 Zeichen"
+                 minlength="12">
+
+          <button id="safe-add"
+                  class="button button-primary button-full">
+            <span>Verschlüsseln & im Tresor speichern</span>
+            <span>＋</span>
+          </button>
+
+          <div id="safe-status"
+               class="status-message"
+               role="status"
+               aria-live="polite"></div>
+        </div>
+
+        <div class="section-head vault-list-head">
+          <div>
+            <div class="eyebrow">DEIN SPEICHER</div>
+            <h3>Gespeicherte Dateien</h3>
+          </div>
+          <button id="safe-refresh"
+                  class="button button-secondary">
+            Aktualisieren ↻
+          </button>
+        </div>
+
+        <div id="safe-list" class="safe-list">
+          <div class="empty-state">
+            Dein Tresor ist noch leer. Füge oben eine Datei hinzu.
+          </div>
+        </div>
+
+        <div class="processing-note">
+          <span>◈</span>
+          Die Tresordateien werden verschlüsselt in diesem Browser
+          gespeichert (IndexedDB). Browserdaten löschen kann
+          lokale Tresordateien entfernen.
+        </div>
+
+        <!-- PRO MULTIPLE VAULTS -->
+        <div class="section-head pro-vault-heading">
+          <div>
+            <div class="eyebrow pro-eyebrow">VELTRIX PRO</div>
+            <h3>Multiple Vaults</h3>
+          </div>
+          <span class="pro-coming-label">PRO FEATURE</span>
+        </div>
+
+        <div class="panel pro-vault-manager" id="pro-vault-manager">
+
+          <div class="panel-title">
+            <span class="step-number">✦</span>
+            <div>
+              <h3>Mehrere Tresore. Ein Workspace.</h3>
+              <p>
+                Organisiere deine Dateien in getrennten,
+                individuell geschützten Bereichen.
+              </p>
+            </div>
+          </div>
+
+          <div class="pro-vault-preview">
+
+            <div class="pro-vault-preview-item">
+              <span class="feature-icon">▤</span>
+              <div>
+                <strong>Privater Tresor</strong>
+                <small>Persönliche Dateien</small>
+              </div>
+              <span class="pro-feature-state">PREVIEW</span>
+            </div>
+
+            <div class="pro-vault-preview-item">
+              <span class="feature-icon">▤</span>
+              <div>
+                <strong>Schule</strong>
+                <small>Dokumente und Projekte</small>
+              </div>
+              <span class="pro-feature-state">PREVIEW</span>
+            </div>
+
+            <div class="pro-vault-preview-item">
+              <span class="feature-icon">▤</span>
+              <div>
+                <strong>Projekte</strong>
+                <small>Eigene Arbeitsbereiche</small>
+              </div>
+              <span class="pro-feature-state">PREVIEW</span>
+            </div>
+
+          </div>
+
+          <div class="processing-note">
+            <span>◈</span>
+            Die Verwaltung mehrerer Tresore befindet sich in Entwicklung.
+            Deine bisherigen Dateien bleiben davon unberührt.
+          </div>
+
+          <button class="button button-secondary button-full"
+                  data-go="pro">
+            VELTRIX Pro entdecken <span>↗</span>
+          </button>
+
+        </div>
+      </section>
+
+      <!-- PRIVACY -->
+      <section class="view" id="view-privacy">
+
+        <div class="page-intro">
+          <div>
+            <div class="eyebrow">DEVICE & PRIVACY</div>
+            <h2>Sicherheit & Info</h2>
+            <p>Die wichtigsten Funktionen von VELTRIX auf einen Blick.</p>
+          </div>
+          <div class="intro-icon">◈</div>
+        </div>
+
+       
+<div class="info-list">
+
+  <article>
+    <span class="info-check">✓</span>
+    <div>
+      <h3>Lokale Verarbeitung</h3>
+      <p>Die ausgewählte Datei wird direkt in deinem Browser verarbeitet und nicht an einen VELTRIX-Server gesendet.</p>
+    </div>
+  </article>
+
+  <article>
+    <span class="info-check">✓</span>
+    <div>
+      <h3>AES-256-GCM</h3>
+      <p>Die Dateiinhalte werden mit authentifizierter AES-GCM-Verschlüsselung geschützt.</p>
+    </div>
+  </article>
+
+  <article>
+    <span class="info-check">✓</span>
+    <div>
+      <h3>Passwortbasierter Schlüssel</h3>
+      <p>PBKDF2-SHA-256 und ein zufälliger Salt leiten aus deinem Passwort den Verschlüsselungsschlüssel ab.</p>
+    </div>
+  </article>
+
+  <article>
+    <span class="info-check">✓</span>
+    <div>
+      <h3>Einfacher Dateiexport</h3>
+      <p>Verschlüsselte und wiederhergestellte Dateien werden als Downloads gespeichert. Deine ausgewählte Originaldatei bleibt unverändert.</p>
+    </div>
+  </article>
+
+  <article class="info-legal-card">
+    <a class="info-legal-link" href="impressum.html">
+      <span class="info-check">✓</span>
+      <div>
+        <h3>Impressum</h3>
+        <p>Informationen über den Betreiber, die Website und Kontaktmöglichkeiten.</p>
+        <span class="info-card-action">Impressum ansehen ↗</span>
+      </div>
+    </a>
+  </article>
+
+  <article class="info-legal-card">
+    <a class="info-legal-link" href="datenschutz.html">
+      <span class="info-check">✓</span>
+      <div>
+        <h3>Datenschutzerklärung</h3>
+        <p>Erfahre, wie VELTRIX mit personenbezogenen Daten und deiner Privatsphäre umgeht.</p>
+        <span class="info-card-action">Datenschutz ansehen ↗</span>
+      </div>
+    </a>
+  </article>
+
+</div>
+
             
-            <!-- Säule 1: Veltrix Personal -->
-            <div class="card">
-                <div>
-                    <div class="card-header">
-                        <div class="card-title">Veltrix Personal</div>
-                        <p class="card-description">
-                            Kostenfreier, clientseitiger Dateitresor. Die Ver- und Entschlüsselung erfolgt via AES-256-GCM vollständig lokal in Ihrem Webbrowser.
-                        </p>
-                    </div>
+      </section>
 
-                    <!-- Screenshot Platzhalter (Hier später dein Bild rein) -->
-                    <div class="screenshot-container">
-                        <div class="screenshot-placeholder">[ Screenshot: Dateitresor Interface ]</div>
-                    </div>
+      <!-- PRO -->
+      
 
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="bullet">▪</span> Keine Registrierung oder Datenübertragung</li>
-                        <li class="feature-item"><span class="bullet">▪</span> Transparenter Open-Source Quellcode</li>
-                        <li class="feature-item"><span class="bullet">▪</span> Mathematisch isolierte Krypto-Umgebung</li>
-                    </ul>
-                </div>
+      <section class="view pro-view" id="view-pro">
 
+        <div class="pro-hero">
 
+          <div class="pro-hero-copy">
+            <div class="pro-kicker">
+              <span class="pro-kicker-line"></span>
+              VELTRIX / PREMIUM EXPERIENCE
+            </div>
+
+            <h2>More control.<br><em>More possibilities.</em></h2>
+
+            <p>
+              Discover the next level of the VELTRIX experience.
+              Powerful tools for a more organized, personal
+              and controlled workspace.
+            </p>
+
+            <span class="pro-status">COMING SOON</span>
+          </div>
+
+          <div class="pro-orb" aria-hidden="true">
+            <div class="pro-orb-ring"></div>
+            <div class="pro-orb-core">V</div>
+            <span class="pro-orb-spark pro-spark-one"></span>
+            <span class="pro-orb-spark pro-spark-two"></span>
+          </div>
+
+          <div class="pro-hero-foot">
+            <span>VELTRIX PRO</span>
+            <span class="pro-hero-line"></span>
+            <span>BUILT FOR MORE</span>
+          </div>
+        </div>
+
+        <div class="pro-section-heading">
+          <div>
+            <div class="eyebrow pro-eyebrow">THE PREMIUM EXPERIENCE</div>
+            <h3>Designed for those who want more.</h3>
+          </div>
+          <span class="pro-coming-label">PLANNED FEATURES</span>
+        </div>
+
+        <div class="pro-feature-grid">
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">▣</span>
+            <span class="pro-feature-number">01 / STORAGE</span>
+            <h4>Multiple Vaults</h4>
+            <p>Create separate spaces for different projects, documents and personal files.</p>
+            <span class="pro-feature-state">IN DEVELOPMENT</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">⌕</span>
+            <span class="pro-feature-number">02 / ORGANIZATION</span>
+            <h4>Advanced Organization</h4>
+            <p>Use custom tags, advanced filters and saved searches to find things faster.</p>
+            <span class="pro-feature-state">PLANNED</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">▤</span>
+            <span class="pro-feature-number">03 / PRODUCTIVITY</span>
+            <h4>Bulk Actions</h4>
+            <p>Manage multiple files in fewer steps with carefully designed batch actions.</p>
+            <span class="pro-feature-state">PLANNED</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">✧</span>
+            <span class="pro-feature-number">04 / PERSONALIZATION</span>
+            <h4>Personalization Studio</h4>
+            <p>Customize your workspace with themes, accent colors and layout options.</p>
+            <span class="pro-feature-state">PLANNED</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">⤓</span>
+            <span class="pro-feature-number">05 / BACKUP</span>
+            <h4>Secure Backup & Restore</h4>
+            <p>Plan and manage backups for supported workspace data and settings.</p>
+            <span class="pro-feature-state">FUTURE UPDATE</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">◷</span>
+            <span class="pro-feature-number">06 / HISTORY</span>
+            <h4>Activity History</h4>
+            <p>Review a local history of important workspace changes and actions.</p>
+            <span class="pro-feature-state">FUTURE UPDATE</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">◈</span>
+            <span class="pro-feature-number">07 / CONTROL</span>
+            <h4>Security Center</h4>
+            <p>See relevant security and storage information in one clear overview.</p>
+            <span class="pro-feature-state">FUTURE UPDATE</span>
+          </article>
+
+          <article class="pro-feature-card">
+            <span class="pro-feature-icon">▦</span>
+            <span class="pro-feature-number">08 / WORKSPACE</span>
+            <h4>Advanced Dashboard</h4>
+            <p>Arrange shortcuts and workspace elements around the way you work.</p>
+            <span class="pro-feature-state">FUTURE UPDATE</span>
+          </article>
+
+        </div>
+
+        <div class="pro-bottom-banner">
+          <div>
+            <div class="pro-kicker">THE NEXT STEP</div>
+            <h3>VELTRIX Pro is in development.</h3>
+            <p>
+              We are shaping a more powerful experience.
+              Feature availability and pricing will be announced
+              when the product is ready.
+            </p>
+          </div>
+          <span class="pro-banner-mark">PRO</span>
+        </div>
+
+  
+<div class="pro-cta">
+  <button class="button button-primary button-full" disabled>
+    VELTRIX Pro kaufen · 2,99 €
+  </button>
+  
+</div>
+      
+
+      </section>
+
+    </main>
+  </div>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="veltrix-footer">
+
+    <div class="footer-brand">
+      <span class="footer-logo">VELTRIX</span>
+      <span class="footer-tagline">Privacy. Control. Freedom.</span>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 VELTRIX. Alle Rechte vorbehalten.</span>
+      <span>Designed for privacy.</span>
+    </div>
+
+    <p>
+      <a href="dateien-verschluesseln.html">
+        Mehr über Dateien verschlüsseln mit VELTRIX erfahren
+      </a>
+    </p>
+
+  </footer>
+
+</body>
+</html>
