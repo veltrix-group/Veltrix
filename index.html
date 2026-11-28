@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veltrix | Absolut sichere Daten- und Workspace-Lösungen</title>
+    <title>Veltrix | Secure Data Solutions</title>
     <style>
-        /* Basis-Layout & Hintergrund */
+        /* Farbpalette definieren */
+        :root {
+            --midnight-navy: #0B132B; /* Satter, tiefer Grundton */
+            --midnight-dark: #070C1B; /* Nuance dunkler für Tiefenwirkung */
+            --steel-blue: #4A90E2;    /* Hochwertiger Akzentton */
+            --steel-muted: #2A4D7C;   /* Dezente Rahmen und Linien */
+            --ice-grey: #D1D5DB;      /* Erstklassige Textlesbarkeit */
+            --white: #FFFFFF;         /* Reine Kontraste */
+        }
+
+        /* Basis-Reset & Typografie */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -13,230 +23,236 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #020617; /* Sehr dunkles Blau-Schwarz */
-            color: #f8fafc;
+            background-color: var(--midnight-navy);
+            color: var(--ice-grey);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* Header Navigation */
+        /* Subtile, edle Animation beim Laden */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header & Navigation */
         header {
-            border-bottom: 1px solid #0f172a;
-            background-color: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(8px);
+            background-color: var(--midnight-dark);
+            border-b: 1px solid var(--steel-muted);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
         }
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
-            height: 64px;
+            height: 70px;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-        .logo {
-            font-size: 20px;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .app-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--steel-blue);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 800;
+            color: var(--white);
+            font-size: 16px;
+        }
+        .logo-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--white);
             letter-spacing: -0.5px;
-            background: linear-gradient(to right, #818cf8, #22d3ee);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         nav a {
             font-size: 14px;
+            font-weight: 500;
             text-decoration: none;
-            margin-left: 24px;
-            transition: color 0.2s;
+            margin-left: 28px;
+            transition: color 0.25s ease;
         }
-        .nav-link-personal {
-            color: #94a3b8;
-        }
-        .nav-link-personal:hover {
-            color: #e2e8f0;
-        }
-        .nav-link-business {
-            color: #818cf8;
-            font-weight: 600;
-        }
-        .nav-link-business:hover {
-            color: #6366f1;
-        }
+        .nav-personal { color: var(--ice-grey); }
+        .nav-personal:hover { color: var(--white); }
+        .nav-business { color: var(--steel-blue); font-weight: 600; }
+        .nav-business:hover { color: #6ba4e8; }
 
-        /* Hauptbereich (Die Weiche) */
+        /* Hauptbereich */
         main {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 64px 24px;
+            padding: 80px 24px;
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
+            animation: fadeIn 0.8s ease-out;
         }
         .hero {
             text-align: center;
-            max-width: 800px;
-            margin-bottom: 64px;
-        }
-        .badge {
-            display: inline-block;
-            background-color: rgba(99, 102, 241, 0.1);
-            color: #818cf8;
-            padding: 4px 12px;
-            border-radius: 9999px;
-            font-size: 14px;
-            font-weight: 500;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            margin-bottom: 16px;
+            max-width: 750px;
+            margin-bottom: 70px;
         }
         h1 {
-            font-size: 36px;
-            font-weight: 800;
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--white);
             letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            background: linear-gradient(to bottom, #ffffff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.25;
+            margin-bottom: 20px;
         }
-        @media (min-width: 640px) {
-            h1 { font-size: 54px; }
+        @media (min-width: 768px) {
+            h1 { font-size: 52px; }
         }
         .subtitle {
             font-size: 18px;
-            color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto;
+            color: var(--ice-grey);
+            line-height: 1.6;
+            font-weight: 400;
         }
 
-        /* Zwei Spalten Layout */
+        /* Zwei-Säulen-Layout */
         .grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 32px;
+            gap: 40px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
         }
-        @media (min-width: 640px) {
+        @media (min-width: 768px) {
             .grid { grid-template-columns: 1fr 1fr; }
         }
 
-        /* Card-Styles */
+        /* Card Design: Ruhig, mathematisch exakt */
         .card {
-            background-color: rgba(15, 23, 42, 0.5);
-            border: 1px solid #1e293b;
-            border-radius: 16px;
-            padding: 32px;
+            background-color: var(--midnight-dark);
+            border: 1px solid var(--steel-muted);
+            border-radius: 12px;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.3s;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
         .card:hover {
-            border-color: #334155;
-            background-color: #0f172a;
-        }
-        .card-business {
-            border: 2px solid #4f46e5;
-            background-color: rgba(15, 23, 42, 0.8);
-            box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.1), 0 8px 10px -6px rgba(79, 70, 229, 0.1);
-        }
-        .card-business:hover {
-            border-color: #6366f1;
-            background-color: #0f172a;
+            transform: translateY(-4px);
+            border-color: var(--steel-blue);
         }
 
-        /* Card Header & Inhalt */
         .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-        }
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        .card-tag {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 2px 10px;
-            border-radius: 9999px;
-        }
-        .tag-free {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.2);
-        }
-        .tag-new {
-            background-color: rgba(79, 70, 229, 0.1);
-            color: #818cf8;
-            border: 1px solid rgba(79, 70, 229, 0.2);
-        }
-        .card-description {
-            font-size: 14px;
-            color: #94a3b8;
             margin-bottom: 24px;
         }
+        .card-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+        .card-description {
+            font-size: 15px;
+            color: var(--ice-grey);
+            line-height: 1.6;
+        }
 
-        /* Feature Liste */
+        /* Platzhalter für echte Software-Screenshots */
+        .screenshot-container {
+            width: 100%;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.15);
+            border-radius: 8px;
+            margin: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .screenshot-placeholder {
+            font-size: 13px;
+            color: rgba(209, 213, 219, 0.4);
+            font-style: italic;
+        }
+        /* Wenn du Screenshots hast, ersetzt du das div oben durch:
+           <img src="img/screenshot.png" alt="Veltrix Software" class="screenshot-img"> */
+        .screenshot-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Taktvolle Feature-Listen */
         .feature-list {
             list-style: none;
             margin-bottom: 32px;
         }
         .feature-item {
             font-size: 14px;
-            color: #cbd5e1;
+            color: var(--ice-grey);
             margin-bottom: 12px;
             display: flex;
             align-items: center;
         }
-        .check-personal { color: #34d399; margin-right: 8px; font-weight: bold; }
-        .check-business { color: #818cf8; margin-right: 8px; font-weight: bold; }
+        .bullet {
+            color: var(--steel-blue);
+            margin-right: 12px;
+            font-weight: bold;
+        }
 
-        /* Buttons */
+        /* Buttons ohne Schnörkel */
         .btn {
             display: block;
             width: 100%;
             text-align: center;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 14px 24px;
+            border-radius: 6px;
+            font-size: 15px;
             font-weight: 600;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s ease, color 0.2s ease;
         }
         .btn-personal {
-            background-color: #1e293b;
-            color: #ffffff;
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--ice-grey);
         }
         .btn-personal:hover {
-            background-color: #334155;
+            background-color: var(--white);
+            color: var(--midnight-navy);
         }
         .btn-business {
-            background-color: #4f46e5;
-            color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+            background-color: var(--steel-blue);
+            color: var(--white);
+            border: 1px solid var(--steel-blue);
         }
         .btn-business:hover {
-            background-color: #6366f1;
+            background-color: #357ABD;
+            border-color: #357ABD;
         }
 
         /* Footer */
         footer {
-            border-top: 1px solid #0f172a;
-            background-color: #020617;
+            background-color: var(--midnight-dark);
+            border-top: 1px solid rgba(7A, 144, 226, 0.1);
             padding: 24px;
             text-align: center;
-            font-size: 12px;
-            color: #64748b;
+            font-size: 13px;
+            color: rgba(209, 213, 219, 0.5);
         }
     </style>
 </head>
@@ -245,25 +261,28 @@
     <!-- Header / Navigation -->
     <header>
         <div class="header-container">
-            <div class="logo">VELTRIX</div>
+            <div class="logo-area">
+                <!-- Einheitliches, schlichtes App-Icon (V-Symbol im Quadrat) -->
+                <div class="app-icon">V</div>
+                <div class="logo-text">VELTRIX</div>
+            </div>
             <nav>
-                <a href="/personal.html" class="nav-link-personal">Für Privatnutzer</a>
-                <a href="/business.html" class="nav-link-business">Für Unternehmen &rarr;</a>
+                <a href="/personal.html" class="nav-personal">Für Privatnutzer</a>
+                <a href="/business.html" class="nav-business">Für Unternehmen</a>
             </nav>
         </div>
     </header>
 
-    <!-- Main Content: Die Weiche -->
+    <!-- Main Content -->
     <main>
         <div class="hero">
-            <span class="badge">Zero-Knowledge Technologie</span>
-            <h1>Maximale Datensicherheit für Privatsphäre und Unternehmen.</h1>
+            <h1>Sicherheitsorientierte Software-Lösungen.</h1>
             <p class="subtitle">
-                Egal ob du deine privaten Dateien lokal verschlüsseln möchtest oder einen hochsicheren, kollaborativen Workspace für dein Team suchst – Veltrix hält deine Daten unter deiner Kontrolle.
+                Architekturen mit lokaler Souveränität. Wählen Sie zwischen dem kostenfreien, browserbasierten Dateitresor für Einzelanwender oder dem kollaborativen Workspace für Teams.
             </p>
         </div>
 
-        <!-- Zwei-Spalten-Layout (Cards) -->
+        <!-- Zwei-Spalten-Layout -->
         <div class="grid">
             
             <!-- Säule 1: Veltrix Personal -->
@@ -271,30 +290,40 @@
                 <div>
                     <div class="card-header">
                         <div class="card-title">Veltrix Personal</div>
-                        <span class="card-tag tag-free">Free / Open Source</span>
+                        <p class="card-description">
+                            Kostenfreier, clientseitiger Dateitresor. Die Ver- und Entschlüsselung erfolgt via AES-256-GCM vollständig lokal in Ihrem Webbrowser.
+                        </p>
                     </div>
-                    <p class="card-description">
-                        Der bewährte, rein browserbasierte Dateitresor. Deine Dateien werden direkt auf deinem Gerät via AES-256-GCM verschlüsselt. Niemand außer dir hat Zugriff.
-                    </p>
+
+                    <!-- Screenshot Platzhalter (Hier später dein Bild rein) -->
+                    <div class="screenshot-container">
+                        <div class="screenshot-placeholder">[ Screenshot: Dateitresor Interface ]</div>
+                    </div>
+
                     <ul class="feature-list">
-                        <li class="feature-item"><span class="check-personal">&#10003;</span> 100% lokale Verschlüsselung</li>
-                        <li class="feature-item"><span class="check-personal">&#10003;</span> Keine Registrierung notwendig</li>
-                        <li class="feature-item"><span class="check-personal">&#10003;</span> Quelloffen auf GitHub</li>
+                        <li class="feature-item"><span class="bullet">▪</span> Keine Registrierung oder Datenübertragung</li>
+                        <li class="feature-item"><span class="bullet">▪</span> Transparenter Open-Source Quellcode</li>
+                        <li class="feature-item"><span class="bullet">▪</span> Mathematisch isolierte Krypto-Umgebung</li>
                     </ul>
                 </div>
-                <a href="/personal.html" class="btn btn-personal">Tresor öffnen</a>
-            </div>
+Verwende Code mit Vorsicht.
+Tresor öffnen
+Veltrix Business
+Kollaborativer Business Organizer für Teams in datensensiblen Branchen. Organisieren Sie Aufgaben, Klienten und Dokumente ohne Cloud-Zwang.
+[ Screenshot: Business Workspace Management ]
+• ▪ Ende-zu-Ende-verschlüsselte Synchronisation
+• ▪ Optionale Integration lokaler KI-Modelle (On-Premise)
+• ▪ Konzipiert für strenge DSGVO-Vorgaben
+Dokumentation & Zugang anfordern
+© 2026 Veltrix Group. Bereitgestellt unter Verzicht auf Drittanbieter-Tracking.
 
-            <!-- Säule 2: Veltrix Business -->
-            <div class="card card-business">
-                <div>
-                    <div class="card-header">
-                        <div class="card-title">Veltrix Business</div>
-                        <span class="card-tag tag-new">Neu: Marktlücke</span>
-                    </div>
-                    <p class="card-description">
-                        Der kollaborative Business Organizer für datensensible Branchen. Aufgaben, CRM und Dokumente im Team verwalten – geschützt durch echte Ende-zu-Ende-Verschlüsselung.
-                    </p>
-                    <ul class="feature-list">
-                        <li class="feature-item"><span class="check-business">&#10003;</span> E2EE Team-Kollaboration &amp; CRDTs</li>
-                        <li class="feature-item"><span class="check-business">&#10003;</span> Lokale KI-Workflows (No-Cloud LLMs)</li>
+### Was dieses Design genau umsetzt:
+1. **Das Logo & Icon:** Links oben befindet sich jetzt ein fixes, minimalistisches Quadrat mit einem großen **V** als App-Icon direkt neben dem Schriftzug. Das zieht sich als Branding durch.
+2. **Professionelle Screenshots:** Jede Kachel verfügt über ein strukturiertes Feld (`.screenshot-container`). Sobald du echte Screenshots deiner Software anfertigst, kannst du die Platzhalter-Texte einfach durch `<img src="...">` austauschen.
+3. **Subtile Animation:** Die gesamte Seite blendet sich beim Laden sanft und ruckelfrei um 10 Pixel nach oben ein (`fadeIn`). Es gibt keine aggressiven Hover-Effekte, sondern nur ein dezentes Nach-oben-Rücken der Kacheln bei Mausberührung.
+4. **Sachlicher Ton:** Keine Marketing-Floskeln wie *"Das beste Tool der Welt"*, sondern präzise, technische Beschreibungen, die Vertrauen bei Entwicklern und Business-Kunden schaffen.
+
+<FollowUp>
+Möchtest du, dass wir für das **App-Icon** oder das Logo ein minimalistisches Vektor-Symbol (SVG) entwerfen, das du direkt im Code einbetten kannst? Damit würde es auf hochauflösenden Bildschirmen gestochen scharf aussehen.
+</FollowUp>
+KI-Antworten können Fehler enthalten. Weitere Informationen
